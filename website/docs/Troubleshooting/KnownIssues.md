@@ -23,7 +23,7 @@ This happens when Traffic Forwarding Profiles are assigned to selected users (in
 
 ### Truncated GSA DNS search suffix leads to flaky Private DNS resolution
 
-As described on the [Windows Troubleshooting section](./GlobalSecureAccessClients/WindowsClientTroubleshooting.md) "How does DNS work with GSA?", GSA adds a DNS search suffix to the device (and a matching NRPT rule) to be able to handle short name resolution by directing these queries through the PA tunnel.
+As described on the [Windows Troubleshooting section](./WindowsClientTroubleshooting.md) "How does DNS work with GSA?", GSA adds a DNS search suffix to the device (and a matching NRPT rule) to be able to handle short name resolution by directing these queries through the PA tunnel.
 
 Because of a bug, the DNS search suffix GSA adds, might have an invalid character at the end as reported by `ipconfig /all`
 
@@ -38,3 +38,15 @@ Note the missing `l` at the end. Once this truncated suffix is appended, the nam
 If you enable the Internet Access traffic forwarding profile, you should **always enable** the Microsoft traffic profile as well. If you only enable the Internet profile, Microsoft traffic will be routed through the Internet Access tunnel, which may result in a suboptimal experience.
 
 **Workaround**: Enable Microsoft traffic forwarding profile in addition to the Internet traffic forwarding profile. We've done a lot of work to make the Microsoft tunnel highly optimized and performant for Microsoft traffic. IA has no such optimizations. Source IP restoration doesn't work in the IA tunnel
+
+
+### FIX COMING SOON Private DNS 'flaky' resolution. 
+ There is a known issue where DNS names that should be resolved via Private DNS fail and work on retry, typically causing application access issues.
+ 
+ Troubleshooting:
+ * Force IPv4 only name resolution from the client side, either using ping -4 fqdn or Resolve-DnsName -Type A - Name fqdn. If this provides stable name resolution, you might be hitting this issue.
+
+Workaround:
+Disable IPv6 on your client machine (where GSA client runs) *AND* on your connector/s servers. *It's important to disable IPv6 on both.*
+
+[Guidance on disabling IPv6 on Windows](https://learn.microsoft.com/troubleshoot/windows-server/networking/configure-ipv6-in-windows#:~:text=will%20be%20preferred.-,Disable%20IPv6,-Decimal%20255%0AHexadecimal)

@@ -81,17 +81,6 @@ For more advance troubleshooting and to understand what DNS servers are being us
 $StartDate = (Get-Date).AddMinutes(-3) ; Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-DNS-Client/Operational';StartTime=$Startdate} | where Message -Match contoso.local | Out-GridView
 ```
 
-### Known issue: Private DNS 'flaky' resolution
- There is a known issue where DNS names that should be resolved via Private DNS fail and work on retry, typically causing application access issues.
- 
- Troubleshooting:
- * Force IPv4 only name resolution from the client side, either using ping -4 fqdn or Resolve-DnsName -Type A - Name fqdn. If this provides stable name resolution, you might be hitting this issue.
-
-Workaround:
-Disable IPv6 on your client machine (where GSA client runs) *AND* on your connector/s servers. *It's important to disable IPv6 on both.*
-
-[Guidance on disabling IPv6 on Windows](https://learn.microsoft.com/troubleshoot/windows-server/networking/configure-ipv6-in-windows#:~:text=will%20be%20preferred.-,Disable%20IPv6,-Decimal%20255%0AHexadecimal)
-
 ### Private Access resource access fails
 There are multiple reasons Private Access resources might not work correctly. Here are some troubleshooting steps you can follow.
 
