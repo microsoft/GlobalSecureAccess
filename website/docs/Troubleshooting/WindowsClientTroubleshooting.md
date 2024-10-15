@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-title: "🛠️ Windows client troubleshooting"
+title: "GSA Windows client"
 ---
 
 ### Is the client connecting?

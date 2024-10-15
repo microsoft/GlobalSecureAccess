@@ -1,10 +1,10 @@
 {
-  "label": "GSA Clients",
+  "label": "Troubleshooting 🛠️",
   "position": 700,
   "collapsible": true,
   "collapsed": false,
   "link": {
     "type": "generated-index",
-    "description": "GSA Clients"
+    "description": "Troubleshooting"
   }
 }
