@@ -14,9 +14,10 @@ Users might see the GSA client disconnected and the following message:
 Additionally, the Event Log "Microsoft-Windows-Global Secure Access Client-Operational" shows event ID 633 and 421 pointing at token acquisition errors.
 
 This happens when Traffic Forwarding Profiles are assigned to selected users (instead of All Users) because of a race condition trying to get tokens after users sign in to Windows.
-![Traffic Forwarding Profiles assigned to selected users](image-2.png)
 
+![Traffic Forwarding Profiles assigned to selected users](TPtoAllUsers.png)
 **Workaround**: assign all your Traffic Forwarding Profiles to All Users.
+
 **Fix**: coming as part of a new GSA client.
 
 
@@ -46,7 +47,6 @@ If you enable the Internet Access traffic forwarding profile, you should **alway
  Troubleshooting:
  * Force IPv4 only name resolution from the client side, either using ping -4 fqdn or Resolve-DnsName -Type A - Name fqdn. If this provides stable name resolution, you might be hitting this issue.
 
-Workaround:
-Disable IPv6 on your client machine (where GSA client runs) *AND* on your connector/s servers. *It's important to disable IPv6 on both.*
+
 
 [Guidance on disabling IPv6 on Windows](https://learn.microsoft.com/troubleshoot/windows-server/networking/configure-ipv6-in-windows#:~:text=will%20be%20preferred.-,Disable%20IPv6,-Decimal%20255%0AHexadecimal)
