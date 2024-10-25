@@ -41,12 +41,12 @@ If you enable the Internet Access traffic forwarding profile, you should **alway
 **Workaround**: Enable Microsoft traffic forwarding profile in addition to the Internet traffic forwarding profile. We've done a lot of work to make the Microsoft tunnel highly optimized and performant for Microsoft traffic. IA has no such optimizations. Source IP restoration doesn't work in the IA tunnel
 
 
-### FIX COMING SOON Private DNS 'flaky' resolution. 
+### FIXED - Private DNS 'flaky' resolution. 
  There is a known issue where DNS names that should be resolved via Private DNS fail and work on retry, typically causing application access issues.
  
  Troubleshooting:
  * Force IPv4 only name resolution from the client side, either using ping -4 fqdn or Resolve-DnsName -Type A - Name fqdn. If this provides stable name resolution, you might be hitting this issue.
 
-
+**Fix**: fixed as part of a cloud service change. Updating GSA client is not required.
 
 [Guidance on disabling IPv6 on Windows](https://learn.microsoft.com/troubleshoot/windows-server/networking/configure-ipv6-in-windows#:~:text=will%20be%20preferred.-,Disable%20IPv6,-Decimal%20255%0AHexadecimal)
