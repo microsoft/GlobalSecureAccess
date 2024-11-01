@@ -10,6 +10,8 @@ Get back to this site using this short URL https://aka.ms/GlobalSecureAccessComm
 
 > Master Microsoft's Security Service Edge (SSE) solution by becoming an expert in **Microsoft Entra Internet Access** and **Microsoft Entra Private Access**.
 
+Looking for the Entra Identity Governance version of this site? https://microsoft.github.io/EntraIDGovernance-Training/
+
 ## 🔐 Unlock the power of identity-centric secure network access
 
 Welcome to our community hub dedicated to Global Secure Access – the unifying term for **Microsoft Entra Internet Access** and **Microsoft Entra Private Access**. We designed this comprehensive resource hub to guide you through the intricacies of deploying a solution that is uniquely built: it converges network, identity, and endpoint access controls so you can secure access to any app or resource, from anywhere. Whether you're a seasoned professional or just starting, here you'll find the tools, documentation, and training materials to master the art of Global Secure Access.
