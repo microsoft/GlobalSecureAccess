@@ -21,7 +21,7 @@ Edit the file MicrosoftEntraPrivateNetworkConnectorService.exe.config located in
 * Delete the comment lines
 * Validate the folder exists
 
-![alt text](image-10.png)
+![alt text](./img/ConnectorLoggingConfig.png)
 
 Example:
 ```

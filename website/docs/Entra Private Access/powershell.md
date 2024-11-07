@@ -12,8 +12,21 @@ NOTE: The commands in this module are being created in the Microsoft Entra Power
 Once I finish, I'll flag this module as deprecated.
 These are the commands already implemented in Entra PS Beta:
 
-Get-GSAPrivateAccessAppNetworkSegment -> Get-EntraBetaPrivateAccessApplicationSegment
-New-GSAPrivateAccessAppNetworkSegment -> New-EntraBetaPrivateAccessApplicationSegment
-Remove-GSAPrivateAccessAppNetworkSegment -> Remove-EntraBetaPrivateAccessApplicationSegment
+Get-GSAPrivateAccessAppNetworkSegment -> `Get-EntraBetaPrivateAccessApplicationSegment`
+
+New-GSAPrivateAccessAppNetworkSegment -> `New-EntraBetaPrivateAccessApplicationSegment`
+
+Remove-GSAPrivateAccessAppNetworkSegment -> `Remove-EntraBetaPrivateAccessApplicationSegment`
+
+New commands added on Nov 4 2024:
+
+`Enable-EntraBetaGlobalSecureAccessTenant`
+
+`New-EntraBetaPrivateAccessApplication`
+
+`Get-EntraBetaPrivateAccessApplication`
+
+`Get-EntraBetaGlobalSecureAccessTenantStatus`
+
 
 ==============================================================

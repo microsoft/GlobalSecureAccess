@@ -9,13 +9,14 @@ This is a list of known issues you might hit while working with Global Secure Ac
 ### Windows GSA client shows "Disabled by your organization" and takes 5 minutes to connect
 
 Users might see the GSA client disconnected and the following message:
-![GSA shows "Disabled by your organization"](image-1.png)
+![GSA shows "Disabled by your organization"](./img/GSADisabledByOrg.png)
 
 Additionally, the Event Log "Microsoft-Windows-Global Secure Access Client-Operational" shows event ID 633 and 421 pointing at token acquisition errors.
 
 This happens when Traffic Forwarding Profiles are assigned to selected users (instead of All Users) because of a race condition trying to get tokens after users sign in to Windows.
 
-![Traffic Forwarding Profiles assigned to selected users](TPtoAllUsers.png)
+![Traffic Forwarding Profiles assigned to selected users](./img/TPtoAllUsers.png)
+
 **Workaround**: assign all your Traffic Forwarding Profiles to All Users.
 
 **Fix**: coming as part of a new GSA client.
@@ -28,7 +29,7 @@ As described on the [Windows Troubleshooting section](./WindowsClientTroubleshoo
 
 Because of a bug, the DNS search suffix GSA adds, might have an invalid character at the end as reported by `ipconfig /all`
 
-![alt text](image.png)
+![alt text](./img/ipconfigTruncated.png)
 
 Note the missing `l` at the end. Once this truncated suffix is appended, the names fail to be sent through the PA tunnel because the suffix doesn't match the NRPT policy. As a result, DNS queries are sent to the local DNS server instead of the Private Access tunnel and ultimately your connector on-prem.
 

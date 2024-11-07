@@ -17,3 +17,7 @@ Oct 1 2024
 * Added a known issues section
 * Kerberos SSO: Added section on Negative Kerb Cache
 * Known issue: truncated DNS search suffix added by GSA client
+
+Nov 7 2024
+* Fixed images on the site
+* Added new Entra PowerShell cmdlets to PowerShell section

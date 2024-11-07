@@ -14,7 +14,7 @@ The Advanced Diagnostics / Traffic tool is a great way to understand why things 
 Start the traffic collection, reproduce what you are trying to do and observe the traffic tab activity.
 If you know the target IPs and ports your app should be connecting to, filtering by those will remove unrelated traffic and make the troubleshooting easier, for example you could add a filter "Destination Port == 3389" if you are troubleshooting RDP connections.
 
-![alt text](image.png)
+![alt text](./img/GSAFilter3389.png)
 
 Note the default filter "Action==Tunnel" applied, the fact you are seeing a line (or flow) here means the GSA client is:
 * Seeing the traffic
@@ -25,7 +25,7 @@ If the destination IPs or ports are not know, you can try filtering by process n
 ### Other reasons traffic might be bypassed
 The Internet Access and Microsoft Traffic Forwarding profiles have the option to configure bypass rules to defined destinations that must not be handled by GSA clients. This is another reason traffic might not be acquired and tunnelled by the GSA client.
 
-![alt text](image-4.png)
+![alt text](./img/IABypass.png)
 
 ### What if I do see some traffic but things still don't work?
 Applications might require connectivity to different services with multiple destination IPs, ports or that use UDP or TCP protocols.
@@ -34,7 +34,7 @@ In this case, if the application process name is known, you can try filtering by
 
 In this example, an RDP connection has been successfully created and tunnelled by the client, however the user reported performance problems. By removing the default Action==Tunnel filter, adding a process name filter and reproducing the issue, we can observe mstsc.exe is trying to send traffic to the RDP server on 3389/UDP, but the GSA client has determined the traffic needs to be bypassed because it doesn't match a forwarding profile rule.
 
-![alt text](image-1.png)
+![alt text](./img/GSAFilterByProcessName.png)
 
 In some cases, is not as easy to spot missing traffic because the process initiating the connection is not the application process. A common example is authentication traffic.
 Your application traffic might be being tunnelled correctly, however the app fails because of authentication failures.
@@ -46,13 +46,13 @@ In this example, a user is accessing a file share from a Windows 11 device. Thin
 * In this case the authentication traffic is being tunnelled because the corresponding rules have been created. If this was not the case, Windows will generally fall back to NTLM which doesn't require additional ports, but this might not be the case depending on configuration.
 * Additionally, we see a connection on 445/TCP, this is the SMB protocol used for file share access.
 
-![alt text](image-2.png)
+![alt text](./img/GSAFilterKerberos.png)
 
 ### Packets "not seen" by the GSA client
 In some cases, you might see the following behavior where traffic is acquired by the GSA client but no outbound packets are seen. Note bytes sent is 0.
 One reason you might see this behavior is when a Windows Firewall rule has been configured to drop/block specific traffic. In the example above, a Windows Firewall rule was blocking RDP.
 
-![alt text](image-6.png)
+![alt text](./img/GSA0SentBytes.png)
 
 ### How does DNS work with GSA?
 The GSA client has generally two ways to work with FQDNs.
@@ -65,7 +65,7 @@ GSA uses NRPT policies to direct all name resolution for Private DNS suffixes to
 To check NRPT rules, run Get-DnsClientNrptPolicy. In this example, we see two NRPT policies that were created by GSA.
 * One for a suffix configured on Private DNS
 * Another one used to send unqualified names (aka single label) through the tunnel. The GSA client also adds a DNS search suffix for AppId.globalsecureaccess.local
-![alt text](image-5.png)
+![alt text](./img/GSANRPTPolicies.png)
 
 Once queries have been resolved, GSA continues with the IP/port/protocol evaluation to determine if the traffic should be acquired and tunnelled.
 
@@ -95,7 +95,7 @@ There are two ways to get logs, and they depend on whether you can reproduce the
 
 If the issue can be reproduced, then the best way to collect logs is by opening Advanced Diagnostics, selecting Advanced Log Collection, and clicking Start Recording. Reproduce your issue, then click Stop Recording.
 
-![alt text](image-7.png)
+![alt text](./img/GSAAdvancedLogging.png)
 Advanced Log Collection gathers diagnostic information from the device including network configuration, registry settings, GSA forwarding profile configuration, and **a network capture (pcap) of the traffic being sent via the tunnels**. This capture makes troubleshooting connectivity issues easier. Client versions after 2.2.158 have also added DNS Client logs, which as useful for diagnosing authentication issues as described above.
 
 For times when the issues cannot be reproduced at will, you can instruct users to simply right-click the GSA tray icon and click Collect Logs. This log collection will include the same diagnostic information as Advanced Log Collection, except the tunnel network capture. Both include ETL tracing that allows you to load the logs in other device for analysis.
@@ -103,7 +103,7 @@ For times when the issues cannot be reproduced at will, you can instruct users t
 ### How to analyse GSA client logs on a different device
 After collecting the logs, they can be loaded on a different device with the GSA client by clicking the following option on the Advanced Diagnostic tool:
 
-![alt text](image-9.png)
+![alt text](./img/GSALoadLogs.png)
 
 This will give you the ability to load the zip file collected from a different device or the GlobalSecureAccess-Trace.etl file which contains flow diagnostic information. The benefit of loading the zip file is that the tool will also load tenant ID, device ID, client version, health check, forwarding profile rules, etc. just like if you were troubleshooting locally on the device.
 

@@ -28,7 +28,7 @@ The Private Network Connector will need access to these IP.
 10. Select **Save** when you're finished.
 
 Example:
-![alt text](image.png)
+![alt text](QAVPNReplacement.png)
 
 ### Add private DNS suffixes
 Add a DNS suffix to use for private DNS. These should include all DNS suffixes required for on-premises access. Most notably, the Active Directory forest name.
@@ -39,7 +39,7 @@ Add a DNS suffix to use for private DNS. These should include all DNS suffixes r
 4. Enter the DNS suffix and then select **Add**.
 
 Example:
-![alt text](image-1.png)
+![alt text](PrivDNSSuffixes.png)
 
 ## Assign users and groups
 

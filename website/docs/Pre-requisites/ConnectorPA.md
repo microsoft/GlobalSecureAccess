@@ -20,6 +20,11 @@ Follow the steps in this article to plan and deploy your connectors in preparati
 ## Tips for avoiding issues on your POCs
 * Avoid placing connectors on DMZ networks, instead consider placing the connector/s servers on a network location close to the resources you are planning to make available through Private Access.
 
-* Avoid using proxy servers to provide connector access to Internet. If you must, then consider TLS inspection and proxy authentication are not supported and will break connectivity with the Private Access service.
+* Avoid using **proxy servers** to provide connector access to Internet. If you must, then consider TLS inspection and proxy authentication are not supported and will break connectivity with the Private Access service.
+Additionally, make sure the server can reach Internet for certificate chain validation by setting the system proxy using:
+```
+netsh winhttp set proxy address:port
+```
+See: [RustSslCertificateValidator: Failed to validate chain of certificate](../Troubleshooting/PrivateNetworkConnector.md#rustsslcertificatevalidator-failed-to-validate-chain-of-certificate)
 
 * Make sure your firewalls are not doing TLS inspection.
