@@ -1,10 +1,3 @@
----
-hide_title: true
----
-
-Copy the above text to a .ps1 file.
-
-```
 
 # =========================================================================
 
@@ -104,6 +97,3 @@ if ($matchingFiles.Count -eq 0) {
     $matchingFiles | ForEach-Object { Write-Host $_ }
 
 }
-
-
-```

@@ -48,7 +48,7 @@ Check using `Get-DNClientNRPTPolicy`.
 Use this script to identify the offending policy and delete it after moving the relevant settings to other policies.
 Please edit the script and modify the variables as per your environment.
 
-[FindDNSNRPTGPO PowerShell Script](https://github.com/microsoft/GlobalSecureAccess/blob/main/website/content/FindDNSNRPTGPO.md)
+[FindDNSNRPTGPO PowerShell Script](https://github.com/microsoft/GlobalSecureAccess/blob/main/website/content/FindDNSNRPTGPO.ps1)
 
 
 
