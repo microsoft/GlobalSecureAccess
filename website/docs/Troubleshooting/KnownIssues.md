@@ -5,6 +5,7 @@ title:  Known Issues
 
 This is a list of known issues you might hit while working with Global Secure Access. We'll keep this list updated and note when issues have been fixed.
 
+## Global Secure Access Windows client
 
 ### Windows GSA client shows "Disabled by your organization" and takes 5 minutes to connect
 
@@ -21,8 +22,6 @@ This happens when Traffic Forwarding Profiles are assigned to selected users (in
 
 **Fix**: coming as part of a new GSA client.
 
-
-
 ### Truncated GSA DNS search suffix leads to flaky Private DNS resolution
 
 As described on the [Windows Troubleshooting section](./WindowsClientTroubleshooting.md) "How does DNS work with GSA?", GSA adds a DNS search suffix to the device (and a matching NRPT rule) to be able to handle short name resolution by directing these queries through the PA tunnel.
@@ -36,18 +35,26 @@ Note the missing `l` at the end. Once this truncated suffix is appended, the nam
 **Workaround**: use GPO or Intune to set your DNS search suffix list to the appropriate suffixes.
 **Fix**: coming as part of a new GSA client.
 
+### Private DNS 'flaky' resolution due to UDP source port reuse
+ There is a known issue where DNS names that should be resolved via Private DNS fail and work on retry, typically causing application access issues.
+ 
+ This is due to a bug on how the GSA client handles UDP source port reuse. Fix coming on a new client build.
+
+### NRPT policies missing on devices managed by Group Policies
+The GSA client creates NRPT policies to route DNS queries for Private DNS suffixes through the tunnel. In some cases, the NRPT policies fail to be created.
+Check using `Get-DNClientNRPTPolicy`.
+
+
+Use this script to identify the offending policy and delete it after moving the relevant settings to other policies.
+Please edit the script and modify the variables as per your environment.
+
+[FindDNSNRPTGPO PowerShell Script](https://github.com/microsoft/GlobalSecureAccess/blob/main/website/content/FindDNSNRPTGPO.md)
+
+
+
+## Internet Access
+
 ### Enabling Internet Forwarding Profile
 If you enable the Internet Access traffic forwarding profile, you should **always enable** the Microsoft traffic profile as well. If you only enable the Internet profile, Microsoft traffic will be routed through the Internet Access tunnel, which may result in a suboptimal experience.
 
 **Workaround**: Enable Microsoft traffic forwarding profile in addition to the Internet traffic forwarding profile. We've done a lot of work to make the Microsoft tunnel highly optimized and performant for Microsoft traffic. IA has no such optimizations. Source IP restoration doesn't work in the IA tunnel
-
-
-### FIXED - Private DNS 'flaky' resolution. 
- There is a known issue where DNS names that should be resolved via Private DNS fail and work on retry, typically causing application access issues.
- 
- Troubleshooting:
- * Force IPv4 only name resolution from the client side, either using ping -4 fqdn or Resolve-DnsName -Type A - Name fqdn. If this provides stable name resolution, you might be hitting this issue.
-
-**Fix**: fixed as part of a cloud service change. Updating GSA client is not required.
-
-[Guidance on disabling IPv6 on Windows](https://learn.microsoft.com/troubleshoot/windows-server/networking/configure-ipv6-in-windows#:~:text=will%20be%20preferred.-,Disable%20IPv6,-Decimal%20255%0AHexadecimal)

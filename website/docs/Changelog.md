@@ -21,3 +21,7 @@ Oct 1 2024
 Nov 7 2024
 * Fixed images on the site
 * Added new Entra PowerShell cmdlets to PowerShell section
+
+Nov 8 2024
+* Added a new known issue - Flaky DNS resolution due to source port reuse handling
+* Added a new known issue - Missing NRPT policies due to malformed GPO
