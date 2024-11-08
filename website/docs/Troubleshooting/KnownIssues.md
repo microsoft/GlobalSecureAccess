@@ -42,7 +42,7 @@ Note the missing `l` at the end. Once this truncated suffix is appended, the nam
 
 ### NRPT policies missing on devices managed by Group Policies
 The GSA client creates NRPT policies to route DNS queries for Private DNS suffixes through the tunnel. In some cases, the NRPT policies fail to be created.
-Check using `Get-DNClientNRPTPolicy`.
+Check using `Get-DNSClientNRPTPolicy`.
 
 This happens because of a malformed GPO that applies NRPT settings.
 
