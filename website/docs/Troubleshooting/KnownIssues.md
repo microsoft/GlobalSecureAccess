@@ -52,6 +52,9 @@ Please edit the script and modify the variables as per your environment.
 [FindDNSNRPTGPO PowerShell Script](https://github.com/microsoft/GlobalSecureAccess/blob/main/website/content/FindDNSNRPTGPO.ps1)
 
 
+### NTLM auth requires fully functional Kerberos when signing in with Windows Hello for Business
+When signing in with WHfB, there is no user password to hash :smiley:. NTLM behavior has been modified to work in this scenario. When Windows client exchange the cloud TGT for a full TGT using from domain controllers, they add a special flag on the request to ask for additional SSO credentials.
+More info: [Hybrid Authentication with FIDO](https://syfuhs.net/hybrid-authentication-with-fido) and [What if I'm unable to get single sign-on to my NTLM network resource after I sign in with FIDO and get a credential prompt?](https://learn.microsoft.com/entra/identity/authentication/howto-authentication-passwordless-security-key-on-premises#what-if-im-unable-to-get-single-sign-on-to-my-ntlm-network-resource-after-i-sign-in-with-fido-and-get-a-credential-prompt)
 
 ## Internet Access
 

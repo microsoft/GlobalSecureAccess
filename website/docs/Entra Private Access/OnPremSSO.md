@@ -11,6 +11,9 @@ It includes making Domain Controllers available through Private Access and confi
 
 ### Tips for avoiding SSO issues
 
+### Is NTLM not working when signing in with Windows Hello for Bussiness?
+Check this known issue: [NTLM auth requires fully functional Kerberos when signing in with Windows Hello for Business](../Troubleshooting/KnownIssues.md#ntlm-auth-requires-fully-functional-kerberos-when-signing-in-with-windows-hello-for-business)
+
 #### Kerberos Negative cache
  When you ask the system to get you a ticket to host/foo.bar.com and it fails to get a ticket for various reasons, it puts the SPN in what's called a negative cache. Every time you ask for a ticket to an SPN the first thing the system does is check this negative cache and asks, "have I tried this recently and if so, did it fail?" If it failed, then it knows don't bother trying and short circuit the same error. This cache is valid for a certain period of time and is controlled by the "SpnCacheTimeout" value. There is a separate cache controlled by FarKdcTimeout that does exactly the same thing, except for when it can't contact a given KDC.
 

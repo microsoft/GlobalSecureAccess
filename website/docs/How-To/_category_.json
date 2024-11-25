@@ -1,0 +1,10 @@
+{
+  "label": "How To's 📖",
+  "position": 750,
+  "collapsible": true,
+  "collapsed": false,
+  "link": {
+    "type": "generated-index",
+    "description": "How To"
+  }
+}
