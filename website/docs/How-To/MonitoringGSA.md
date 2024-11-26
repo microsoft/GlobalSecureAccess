@@ -1,4 +1,4 @@
-# Global Secure Access logs and monitoring
+# GSA logs and monitoring
 
 This article describes the logs and dashboards that are available to you and some common monitoring scenarios.
 
