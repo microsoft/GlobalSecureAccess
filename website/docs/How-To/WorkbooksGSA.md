@@ -34,7 +34,7 @@ In the Microsoft Entra admin center, navigate to **Global Secure Access** > **Mo
 **Network Traffic Insights workbook** - 
 Provides an overview of all traffic logs within your network, offering insights into data transfer, anomalies, and potential threats. 
 
-![alt text](./img/network-Traffic-Insights.png)
+![alt text](./img/Network-Traffic-Insights.png)
 
 **Remote Network Health workbook** - 
 Monitors the health and performance of remote networks, ensuring that all remote connections are reliable and secure. 
