@@ -64,8 +64,8 @@ In some cases, it's necessary to block specific websites rather than using broad
    * **What does this policy apply to?** Users and groups.
    * **Include** \> **Select users and groups** \> Select **Users and groups**.
    * Select your test group. Click **Select**.
-3. **Target resources** \> **Select what this policy applies to** \> **Global Secure Access**.
-4. **Select the traffic profiles this policy applies to** \> **Internet traffic**.
+4. **Target resources**.
+   * **Select "All internet resources with Global Secure Access"**.
 5. In the **Session** dialog box, select **Block FQDNs Internet Access Profile**. Select **Internet Access Profile**.
 6. In **Conditional Access Overview** \> **Enable policy**, select **On**. Select **Create**.
 

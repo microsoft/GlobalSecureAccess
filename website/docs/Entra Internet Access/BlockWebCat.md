@@ -70,8 +70,7 @@ Complete the following tasks to configure the scenario:
    * **Include** \> **Select users and groups** \> Select **Users and groups**.
 3. Select your test group \> click **Select**.
 4. **Target resources**.
-   * **Select what this policy applies to** \> **Global Secure Access**.
-   * **Select the traffic profiles this policy applies to** \> **Internet traffic**.
+   * **Select "All internet resources with Global Secure Access"**.
 5. Leave the **Grant** control at default to grant access so that your defined security profile defines block functionality.
 6. In the **Session** dialog box, select **Use Global Secure Access security profile**.
 7. Select **Internet Access Profile**.  

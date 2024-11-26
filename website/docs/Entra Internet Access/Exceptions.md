@@ -62,8 +62,8 @@ In some cases, you might have users that require access to blocked sites for gro
    * **What does this policy apply to?** Users and groups.
    * **Include** \> **Select users and groups** \> Select **Users and groups**.
    * Select your test group. Click **Select**.
-3. **Target resources** \> **Select what this policy applies to** \> **Global Secure Access**.
-4. **Select the traffic profiles this policy applies to** \> **Internet traffic**.
+4. **Target resources**.
+   * **Select "All internet resources with Global Secure Access"**.
 5. **Session** \> select **Use Global Secure Access security profile**, select **Allow FQDNs Internet Access Profile**. Click **Select**.
 6. In **Conditional Access Overview** \> **Enable policy**, select **On**. Select **Create**.
 
