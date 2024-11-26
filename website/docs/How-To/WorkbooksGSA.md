@@ -39,11 +39,19 @@ Provides an overview of all traffic logs within your network, offering insights 
 **Remote Network Health workbook** - 
 Monitors the health and performance of remote networks, ensuring that all remote connections are reliable and secure. 
 
+![alt text](./img/Remote-Network-Health.png)
+
 **Clients Activity and Status workbook** - 
 Offers an overview of the clients connected to your network, including their health status and activity levels. 
+
+![alt text](./img/Client-Activity.png)
 
 **Discovered Application Segments workbook** - 
 Identifies and categorizes application segments discovered within your network, aiding in effective monitoring and management of applications. 
 
+![alt text](./img/App-Discovery.png)
+
 **Enriched Microsoft 365 Logs workbook** - 
 Provides a detailed view of Microsoft 365 log data, enriched with contextual information to enhance visibility into user activities and potential security threats. 
+
+![alt text](./img/Enriched-Logs.png)
