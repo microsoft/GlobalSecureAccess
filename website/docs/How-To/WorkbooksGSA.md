@@ -25,7 +25,7 @@ The Global Secure Access categories are:
 |Enriched Microsoft 365 logs (Preview) |`EnrichedOffice365AuditLogs`   |
 |Remote Network Health Logs (Preview) |`RemoteNetworkHealthLogs` |
 
-:::image type="content" source="../How-To/img/add-diagnostic-setting.png" alt-text="Screenshot of the Microsoft Entra diagnostic settings, with the Global Secure Access logs categories selected." lightbox="../How-To/img/add-diagnostic-setting.png":::
+![alt text](./img/add-diagnostic-setting.png)
 
 ## Global Secure Access workbooks
 
@@ -33,6 +33,8 @@ In the Microsoft Entra admin center, navigate to **Global Secure Access** > **Mo
 
 **Network Traffic Insights workbook** - 
 Provides an overview of all traffic logs within your network, offering insights into data transfer, anomalies, and potential threats. 
+
+![alt text](./img/network-Traffic-Insights.png)
 
 **Remote Network Health workbook** - 
 Monitors the health and performance of remote networks, ensuring that all remote connections are reliable and secure. 
