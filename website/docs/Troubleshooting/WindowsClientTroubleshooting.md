@@ -88,22 +88,3 @@ Capture traffic using the Advanced Diagnostic tool and make sure the flows are a
 Get the "Correlation vector ID" and use it to look up GSA Traffic Logs on the Entra portal. Traffic logs show what connector handled the traffic and if errors occurred.
 
 If there are no errors on Traffic Logs pointing at problems communicating with Private Network connectors, the next step would be obtaining and analysing a network capture to see the actual conversations going through the tunnel. See the next section on how to get this.
-
-
-### How to get GSA client logs
-There are two ways to get logs, and they depend on whether you can reproduce the issue or not.
-
-If the issue can be reproduced, then the best way to collect logs is by opening Advanced Diagnostics, selecting Advanced Log Collection, and clicking Start Recording. Reproduce your issue, then click Stop Recording.
-
-![alt text](./img/GSAAdvancedLogging.png)
-Advanced Log Collection gathers diagnostic information from the device including network configuration, registry settings, GSA forwarding profile configuration, and **a network capture (pcap) of the traffic being sent via the tunnels**. This capture makes troubleshooting connectivity issues easier. Client versions after 2.2.158 have also added DNS Client logs, which as useful for diagnosing authentication issues as described above.
-
-For times when the issues cannot be reproduced at will, you can instruct users to simply right-click the GSA tray icon and click Collect Logs. This log collection will include the same diagnostic information as Advanced Log Collection, except the tunnel network capture. Both include ETL tracing that allows you to load the logs in other device for analysis.
-
-### How to analyse GSA client logs on a different device
-After collecting the logs, they can be loaded on a different device with the GSA client by clicking the following option on the Advanced Diagnostic tool:
-
-![alt text](./img/GSALoadLogs.png)
-
-This will give you the ability to load the zip file collected from a different device or the GlobalSecureAccess-Trace.etl file which contains flow diagnostic information. The benefit of loading the zip file is that the tool will also load tenant ID, device ID, client version, health check, forwarding profile rules, etc. just like if you were troubleshooting locally on the device.
-

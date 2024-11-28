@@ -3,9 +3,14 @@ sidebar_position: 150
 title:  📝 Changelog
 ---
 
+**Nov 28 2024**
+* Added a new How To - "GSA logs and monitoring"
+* Added a new How To - "Use workbooks with GSA"
+* Added a new Troubleshooting doc - "GSA client logging"
+
 **Nov 25 2024**
 * Added steps to deploy the GSA client using Intune to the "Deploy GSA Client" section (Thanks Jeff Bley!)
-* Added a new section: "How To's"
+* Added a new section - "How To's"
 * Added a new How To - "Harden Windows GSA" (Thanks Peter Lenzke)
 * Added a known issue - NTLM auth requires fully functional Kerberos when signing in with Windows Hello for Business
 

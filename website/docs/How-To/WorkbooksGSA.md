@@ -1,3 +1,7 @@
+---
+sidebar_position: 300
+title:  Use workbooks with GSA
+---
 # How to use workbooks with Global Secure Access
 
 Workbooks combine text, log queries, metrics, and parameters into rich interactive reports. Any team member with access to the required Azure resources can create and edit workbooks. To learn more about Azure Workbooks, see [Overview of Azure Workbooks](https://learn.microsoft.com/en-us/azure/azure-monitor/visualize/workbooks-overview).

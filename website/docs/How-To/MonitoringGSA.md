@@ -1,3 +1,8 @@
+---
+sidebar_position: 200
+title:  GSA logs and monitoring
+---
+
 # GSA logs and monitoring
 
 This article describes the logs and dashboards that are available to you and some common monitoring scenarios.
