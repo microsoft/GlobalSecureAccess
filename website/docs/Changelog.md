@@ -3,6 +3,9 @@ sidebar_position: 150
 title:  📝 Changelog
 ---
 
+**Nov 29 2024**
+* Marked 2 known issues as fixed as part of the Windows GSA client build 2.8.45.
+
 **Nov 28 2024**
 * Added a new How To - "GSA logs and monitoring"
 * Added a new How To - "Use workbooks with GSA"
