@@ -3,6 +3,9 @@ sidebar_position: 150
 title:  📝 Changelog
 ---
 
+**Dec 5 2024**
+* Added a new How To - "Understand and test Universal Tenant Restrictions" 
+
 **Nov 29 2024**
 * Marked 2 known issues as fixed as part of the Windows GSA client build 2.8.45.
 
