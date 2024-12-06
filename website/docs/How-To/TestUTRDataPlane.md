@@ -5,6 +5,14 @@ title:  Understand and test Universal Tenant Restrictions
 
 Tenant Restrictions is a complex topic. In this article we'll explain why you should care about TR, the benefits of Universal Tenant Restrictions and how to test it.
 
+**Universal Tenant Restrictions Data Plane controls demo**
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5g5SIgkVtso?si=D8_AYaS3sJBJRm7w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+Download the original video from here: [Universal Tenant Restrictions Data Plane Protection in Graph API](https://github.com/microsoft/GlobalSecureAccess/blob/main/website/content/UniversalTenantRestrictionsDataPlaneProtectioninGraphAPI.mp4)
+
+
 ## Why do I need Tenant Restrictions
 
 Data exfiltration is the answer. Say you have an employee trying to exfiltrate some data and you block file sharing sites. People can create their own Microsoft 365 tenant with trial licenses that allow them to access their own SharePoint Online instance they can use to copy data. People can simply sign in with admin@myexfiltenant.onmicrosoft.com user (perhaps in an InPrivate browser session), access SharePoint Online and copy all the stuff they are trying to exfiltrate. **You can block this implementing Tenant Restrictions authentication plane**.
@@ -57,7 +65,3 @@ Invoke-RestMethod -Method GET -Uri "https://graph.microsoft.com/v1.0/users/$user
 
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/5g5SIgkVtso?si=D8_AYaS3sJBJRm7w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-
-Download the original video from here: [Universal Tenant Restrictions Data Plane Protection in Graph API](https://github.com/microsoft/GlobalSecureAccess/blob/main/website/content/UniversalTenantRestrictionsDataPlaneProtectioninGraphAPI.mp4)
