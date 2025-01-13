@@ -8,13 +8,14 @@ Explore our available materials that enable your organization to build a practic
 
 ### Resources
 
-- Demos: [Clickthrough Demos](https://livesend.microsoft.com/i/5MXuLrGEvgEn4I___qPLUSSIGNmxcu5K8___AywrC9RUFPIJwzwNT3nXtZnUUQPLUSSIGNLlz0Um5zQyqML___zI5mudZaPLUSSIGNPjastaLqLQqWkqDZqrvvpwtMn6KOM6YbqskQOImn1cUFfvcNyvU55)
-- L100 Deck: [Microsoft Entra Internet Access and Private Access - L100 Deck](https://livesend.microsoft.com/i/5MXuLrGEvgEn4I___qPLUSSIGNmxcu5K8___AywrC9RUFPIJwzwNT0qSLLEB4___Ai1lMaWG80P4TsKhd___4jXxopSP4NpB73ZFqUwrahjmVKodfVcsFlj3bJAhydjfa9dxLrTnKPLUSSIGNG0gii)
-- L200 Deck (Internet Access): [Microsoft Entra Internet Access - L200 Deck](https://livesend.microsoft.com/i/5MXuLrGEvgEn4I___qPLUSSIGNmxcu5K8___AywrC9RUFPIJwzwNT10MtbqV4wS___ZqwBC9QXyuuVF2Jwb3mQ1xwms2cLnRZh8YV0Vm0w9jJgDAxkeSGKP9LIHm7Z9PLUSSIGNYDmDY9hGePftR)
-- L200 Deck (Private Access): [Microsoft Entra Private Access - L200 Deck](https://livesend.microsoft.com/i/5MXuLrGEvgEn4I___qPLUSSIGNmxcu5K8___AywrC9RUFPIJwzwNT3BUok___FnqFAnRaKbucQR7L9tPLUSSIGNDtvYw3tSxkbjoOxebm9jmYy7rWmUoJuvLTyQtv6r2b5TAXDuRZ9bTXdflmDIt)
-- Datasheet (Internet Access): [Microsoft Entra Internet Access Datasheet](https://livesend.microsoft.com/i/5MXuLrGEvgEn4I___qPLUSSIGNmxcu5K8___AywrC9RUFPIJwzwNT1muPLUSSIGN7cXDHYCr4IplFyqXaafbcLQ3RgPEkjM4ADP9UuFIjxyOOYGJn2Yhpv5___JU4Dtz8RxwzOfkMGzGbgvkSkQ1)
-- Datasheet (Private Access): [Microsoft Entra Private Access Datasheet](https://livesend.microsoft.com/i/5MXuLrGEvgEn4I___qPLUSSIGNmxcu5K8___AywrC9RUFPIJwzwNT3BUok___FnqFAnRaKbucQR7LMcZWhODAmdRRuHu5FDfw9qhpHnUeP4O47MRpSTi5pRscSkNhsWWyt2VD6PYQgZEU)
-- Customer Flyer: [Email Template](https://livesend.microsoft.com/i/5MXuLrGEvgEn4I___qPLUSSIGNmxcu5K8___AywrC9RUFPIJwzwNT3gxfGtfWaHVOeY___wPSfqHEnSBmw___K1Gtco9UpEN96hQryHGqqCYgAu2FNsQQ5DSpGKY0f9M___D8vjgeb5rvoGnG)
+- Demos: [Clickthrough Demos](https://livesend.microsoft.com/i/5MXuLrGEvgEn4I___qPLUSSIGNmxcu5K8___AywrC9RUFPIJwzwNT36xBRgQOQGZaso0XLEgYOh1MLFOkfAVA___ylZ___xrILX5nkp7TGKqcPLUSSIGNBHvLaxoE4ngEFmmgyDM___NlMihjYGjY___gG)
+  
+- Microsoft Entra Internet Access + Private Access: [L100 Deck](https://livesend.microsoft.com/i/5MXuLrGEvgEn4I___qPLUSSIGNmxcu5K8___AywrC9RUFPIJwzwNT0fZyXDCIdLztzpyk1SlrBxWynp0bM1D9OD9iduxvOwtOfz3Xwb38oNknjMiwD1ZWPo5mSx5xPv4GkgA___D3FlFq)
+- Microsoft Entra Internet Access for Microsoft Services: [L100 Deck](https://livesend.microsoft.com/i/5MXuLrGEvgEn4I___qPLUSSIGNmxcu5K8___AywrC9RUFPIJwzwNT0fZyXDCIdLztzpyk1SlrBxgqmvWKERA8tcAg5JGn28___szAlOYpNCXYSj9___RZcpYnjVLc18v3hIacXZgKq9lPY1)
+- Microsoft Entra Internet Access: [Datasheet](https://livesend.microsoft.com/i/5MXuLrGEvgEn4I___qPLUSSIGNmxcu5K8___AywrC9RUFPIJwzwNT3gxfGtfWaHVOeY___wPSfqHETniRk44lNN5g2TdWT2P2iRe4CyjmgFM2Pc2U5suep4xF8frgH3OrmHyEz8N3QSUU)
+
+- Microsoft Entra Private Access: [L200 Deck](https://livesend.microsoft.com/i/5MXuLrGEvgEn4I___qPLUSSIGNmxcu5K8___AywrC9RUFPIJwzwNT1muPLUSSIGN7cXDHYCr4IplFyqXaaYHaPLUSSIGNF7SU7Lqc5B88M7eOFUxyvt7QNlahb7a___u1Li___RQbn1ua7uYVJsYmOr95Jv3L)
+- Microsoft Entra Private Access: [Datasheet](https://livesend.microsoft.com/i/5MXuLrGEvgEn4I___qPLUSSIGNmxcu5K8___AywrC9RUFPIJwzwNT10MtbqV4wS___ZqwBC9QXyuurdveP6GWoO8ax72gdPa6OIb2irPLUSSIGN2LElGKHRLFA4hGPotmXPLUSSIGNkPECBGjId9rSyYRaC)
 
 ### Connect with Microsoft
 To report findings from customer PoCs, use the form below. It will help you connect with engineering for issues, feature requests, or any valuable feedback you may have:
