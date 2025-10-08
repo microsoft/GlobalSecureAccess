@@ -1,0 +1,10 @@
+{
+  "label": "Migrating to GSA",
+  "position": 650,
+  "collapsible": true,
+  "collapsed": false,
+  "link": {
+    "type": "generated-index",
+    "description": "Migrating to GSA"
+  }
+}

@@ -2,6 +2,8 @@
 sidebar_position: 150
 title:  📝 Changelog
 ---
+**Oct 10 2025**
+* Added references to Migrate2GSA
 
 **Dec 9 2024**
 * Added Entra PowerShell commands and examples to the "Using PowerShell to manage Private Access" section
