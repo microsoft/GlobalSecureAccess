@@ -60,9 +60,6 @@ const sidebars = {
       collapsed: false,
       items: [
         'Migrating to GSA/Migrate2GSA',
-        'Migrating to GSA/ZScalerPrivateAccessMigration',
-        'Migrating to GSA/ZScalerInternetAccessMigration',
-        'Migrating to GSA/EntraPrivateAccessProvisioning',
       ],
     },
     {
