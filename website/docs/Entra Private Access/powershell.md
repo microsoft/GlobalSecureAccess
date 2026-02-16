@@ -12,11 +12,11 @@ Install the module running:
 For more information on installing the module, visit this site: https://learn.microsoft.com/powershell/entra-powershell/installation
 
 ## Private Access application segment management
- [Get-EntraBetaPrivateAccessApplicationSegment](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/get-entrabetaprivateaccessapplicationsegment?view=entra-powershell-beta)
+ [Get-EntraBetaPrivateAccessApplicationSegment](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.networkaccess/get-entrabetaprivateaccessapplicationsegment?view=entra-powershell-beta)
 
- [New-EntraBetaPrivateAccessApplicationSegment](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/new-entrabetaprivateaccessapplicationsegment?view=entra-powershell-beta)
+ [New-EntraBetaPrivateAccessApplicationSegment](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.networkaccess/new-entrabetaprivateaccessapplicationsegment?view=entra-powershell-beta)
  
- [Remove-EntraBetaPrivateAccessApplicationSegment](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/remove-entrabetaprivateaccessapplicationsegment?view=entra-powershell-beta)
+ [Remove-EntraBetaPrivateAccessApplicationSegment](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.networkaccess/remove-entrabetaprivateaccessapplicationsegment?view=entra-powershell-beta)
 
 ### Examples:
 
@@ -97,9 +97,9 @@ foreach ($variable in $variables) {
 
 ## Private Access app management
 
-[Get-EntraBetaPrivateAccessApplication](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/get-entrabetaprivateaccessapplication?view=entra-powershell-beta)
+[Get-EntraBetaPrivateAccessApplication](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.networkaccess/get-entrabetaprivateaccessapplication?view=entra-powershell-beta)
 
-[New-EntraBetaPrivateAccessApplication](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/new-entrabetaprivateaccessapplication?view=entra-powershell-beta)
+[New-EntraBetaPrivateAccessApplication](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.networkaccess/new-entrabetaprivateaccessapplication?view=entra-powershell-beta)
 
 ### Examples:
 
@@ -145,17 +145,17 @@ createdDateTime : 14/06/2024 12:38:50 AM
 
 |Command| Details|
 |---|---|
-|[Get-EntraBetaApplicationProxyApplicationConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/get-entrabetaapplicationproxyapplicationconnectorgroup?view=entra-powershell-beta)| The Get-EntraBetaApplicationProxyApplicationConnectorGroup cmdlet retrieves the connector group assigned for a specific application.|
-|[Get-EntraBetaApplicationProxyConnector](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/get-entrabetaapplicationproxyconnector?view=entra-powershell-beta)|The Get-EntraBetaApplicationProxyConnector cmdlet a list of all connectors, or if specified, details of a specific connector.|
-|[Get-EntraBetaApplicationProxyConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/get-entrabetaapplicationproxyconnectorgroup?view=entra-powershell-beta)|The Get-EntraBetaApplicationProxyConnectorGroup cmdlet retrieves a list of all connector groups, or if specified, details of a specific connector group.|
-|[Get-EntraBetaApplicationProxyConnectorGroupMembers](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/get-entrabetaapplicationproxyconnectorgroupmembers?view=entra-powershell-beta)	| The Get-EntraBetaApplicationProxyConnectorGroupMembers get all the Application Proxy connectors associated with the given connector group.|
-|[Get-EntraBetaApplicationProxyConnectorMemberOf](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/get-entrabetaapplicationproxyconnectormemberof?view=entra-powershell-beta)	| The Get-EntraBetaApplicationProxyConnectorMemberOf command gets the ConnectorGroup that the specified Connector is a member of.|
-|[New-EntraBetaApplicationProxyConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/new-entrabetaapplicationproxyconnectorgroup?view=entra-powershell-beta)	| The New-EntraBetaApplicationProxyConnectorGroup cmdlet creates a new Application Proxy Connector group.|
-|[Remove-EntraBetaApplicationProxyApplicationConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/remove-entrabetaapplicationproxyapplicationconnectorgroup?view=entra-powershell-beta)	| The Remove-EntraBetaApplicationProxyApplicationConnectorGroupcmdlet sets the connector group assigned for the specified application to 'Default' and removes the current assignment.|
-|[Remove-EntraBetaApplicationProxyConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/remove-entrabetaapplicationproxyconnectorgroup?view=entra-powershell-beta)	| The Remove-EntraBetaApplicationProxyConnectorGroup cmdlet deletes an Application Proxy Connector group.|
-|[Set-EntraBetaApplicationProxyApplicationConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/set-entrabetaapplicationproxyapplicationconnectorgroup?view=entra-powershell-beta)	| The Set-EntraBetaApplicationProxyApplicationConnectorGroup cmdlet assigns the given connector group to a specified application.|
-|[Set-EntraBetaApplicationProxyConnector](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/set-entrabetaapplicationproxyconnector?view=entra-powershell-beta)	| The Set-EntraBetaApplicationProxyConnector cmdlet allows reassignment of the connector to another connector group.|
-|[Set-EntraBetaApplicationProxyConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/set-entrabetaapplicationproxyconnectorgroup?view=entra-powershell-beta)	| The Set-EntraBetaApplicationProxyConnectorGroup cmdlet allows you to change the name of a given Application Proxy connector group.|
+|[Get-EntraBetaApplicationProxyApplicationConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.applications/get-entrabetaapplicationproxyapplicationconnectorgroup?view=entra-powershell-beta)| The Get-EntraBetaApplicationProxyApplicationConnectorGroup cmdlet retrieves the connector group assigned for a specific application.|
+|[Get-EntraBetaApplicationProxyConnector](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.applications/get-entrabetaapplicationproxyconnector?view=entra-powershell-beta)|The Get-EntraBetaApplicationProxyConnector cmdlet a list of all connectors, or if specified, details of a specific connector.|
+|[Get-EntraBetaApplicationProxyConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.applications/get-entrabetaapplicationproxyconnectorgroup?view=entra-powershell-beta)|The Get-EntraBetaApplicationProxyConnectorGroup cmdlet retrieves a list of all connector groups, or if specified, details of a specific connector group.|
+|[Get-EntraBetaApplicationProxyConnectorGroupMembers](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.applications/get-entrabetaapplicationproxyconnectorgroupmembers?view=entra-powershell-beta)	| The Get-EntraBetaApplicationProxyConnectorGroupMembers get all the Application Proxy connectors associated with the given connector group.|
+|[Get-EntraBetaApplicationProxyConnectorMemberOf](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.applications/get-entrabetaapplicationproxyconnectormemberof?view=entra-powershell-beta)	| The Get-EntraBetaApplicationProxyConnectorMemberOf command gets the ConnectorGroup that the specified Connector is a member of.|
+|[New-EntraBetaApplicationProxyConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.applications/new-entrabetaapplicationproxyconnectorgroup?view=entra-powershell-beta)	| The New-EntraBetaApplicationProxyConnectorGroup cmdlet creates a new Application Proxy Connector group.|
+|[Remove-EntraBetaApplicationProxyApplicationConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.applications/remove-entrabetaapplicationproxyapplicationconnectorgroup?view=entra-powershell-beta)	| The Remove-EntraBetaApplicationProxyApplicationConnectorGroupcmdlet sets the connector group assigned for the specified application to 'Default' and removes the current assignment.|
+|[Remove-EntraBetaApplicationProxyConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.applications/remove-entrabetaapplicationproxyconnectorgroup?view=entra-powershell-beta)	| The Remove-EntraBetaApplicationProxyConnectorGroup cmdlet deletes an Application Proxy Connector group.|
+|[Set-EntraBetaApplicationProxyApplicationConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.applications/set-entrabetaapplicationproxyapplicationconnectorgroup?view=entra-powershell-beta)	| The Set-EntraBetaApplicationProxyApplicationConnectorGroup cmdlet assigns the given connector group to a specified application.|
+|[Set-EntraBetaApplicationProxyConnector](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.applications/set-entrabetaapplicationproxyconnector?view=entra-powershell-beta)	| The Set-EntraBetaApplicationProxyConnector cmdlet allows reassignment of the connector to another connector group.|
+|[Set-EntraBetaApplicationProxyConnectorGroup](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.applications/set-entrabetaapplicationproxyconnectorgroup?view=entra-powershell-beta)	| The Set-EntraBetaApplicationProxyConnectorGroup cmdlet allows you to change the name of a given Application Proxy connector group.|
 
 ### Examples
 
@@ -195,8 +195,8 @@ bbbbbbbb-1111-2222-3333-cccccccccccc 106.195.6.123 AppProxy Machine active 1.5.3
 
 ## GSA tenant enablement
 
-[Enable-EntraBetaGlobalSecureAccessTenant](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/enable-entrabetaglobalsecureaccesstenant?view=entra-powershell-beta)
+[Enable-EntraBetaGlobalSecureAccessTenant](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.networkaccess/enable-entrabetaglobalsecureaccesstenant?view=entra-powershell-beta)
 
-[Get-EntraBetaGlobalSecureAccessTenantStatus](https://learn.microsoft.com/powershell/module/microsoft.entra.beta/get-entrabetaglobalsecureaccesstenantstatus?view=entra-powershell-beta)
+[Get-EntraBetaGlobalSecureAccessTenantStatus](https://learn.microsoft.com/powershell/module/microsoft.entra.beta.networkaccess/get-entrabetaglobalsecureaccesstenantstatus?view=entra-powershell-beta)
 
 
