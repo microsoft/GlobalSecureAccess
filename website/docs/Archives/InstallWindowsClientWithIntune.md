@@ -1,5 +1,5 @@
 ---
-sidebar_position: 320
+sidebar_position: 300
 title: "Deploy GSA Client"
 ---
 

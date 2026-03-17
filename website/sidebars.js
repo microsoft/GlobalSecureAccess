@@ -16,78 +16,52 @@ const sidebars = {
   // Manual sidebar with external links positioned where needed
   docSidebar: [
     'intro',
-    'Changelog',
-    'RunningPOCs',
     {
-      type: 'category',
-      label: 'Pre-requisites',
-      collapsed: false,
-      items: [
-        'Pre-requisites/Baseline',
-        'Pre-requisites/ActivateGSA',
-        'Pre-requisites/DeployClient',
-        'Pre-requisites/ConnectorPA',
-      ],
+      type: 'doc',
+      id: 'TutorialsAndLabs',
+      label: 'Tutorials and Labs',
+    },
+    {
+      type: 'doc',
+      id: 'UsefulVideos',
+      label: 'Useful Videos',
+    },
+    {
+      type: 'doc',
+      id: 'Migrate2GSA',
+      label: 'GSA Migration Tool',
+    },
+    {
+      type: 'doc',
+      id: 'GSA-TraceRT',
+      label: 'GSA TraceRT',
+    },
+    {
+      type: 'doc',
+      id: 'PAConnectorSizing',
+      label: 'Private Network Connector Sizing Tool',
+    },
+    {
+      type: 'doc',
+      id: 'GSAFeatureUsageAnalysis',
+      label: 'GSA Feature Usage Analysis',
     },
     {
       type: 'category',
-      label: 'Entra Private Access',
-      collapsed: false,
+      label: 'Archives',
+      collapsed: true,
       items: [
-        'Entra Private Access/VPNReplacement',
-        'Entra Private Access/SegmentAccess',
-        'Entra Private Access/per-appAccess',
-        'Entra Private Access/OnPremSSO',
-        'Entra Private Access/PrivAccessPIM',
-        'Entra Private Access/powershell',
+        {
+          type: 'doc',
+          id: 'Archives/InstallWindowsClientWithIntune',
+          label: 'Install Windows client with Intune',
+        },
       ],
     },
     {
-      type: 'category',
-      label: 'Entra Internet Access',
-      collapsed: false,
-      items: [
-        'Entra Internet Access/EIAPOCScenarios',
-        'Entra Internet Access/BaselineBlock',
-        'Entra Internet Access/BlockWebCat',
-        'Entra Internet Access/BlockFQDN',
-        'Entra Internet Access/Exceptions',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Migrating to GSA',
-      collapsed: false,
-      items: [
-        'Migrating to GSA/Migrate2GSA',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Troubleshooting',
-      collapsed: false,
-      items: [
-        'Troubleshooting/GSAClientLogging',
-        'Troubleshooting/PrivateNetworkConnector',
-        'Troubleshooting/KnownIssues',
-        'Troubleshooting/WindowsClientTroubleshooting',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'How-To',
-      collapsed: false,
-      items: [
-        'How-To/TestUTRDataPlane',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Partners',
-      collapsed: false,
-      items: [
-        'partners/Partner content',
-      ],
+      type: 'doc',
+      id: 'Changelog',
+      label: 'Change Log',
     },
   ],
 };
