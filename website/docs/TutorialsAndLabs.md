@@ -2,11 +2,11 @@
 title: Tutorials and Labs
 ---
 
-Microsoft offers detailed step-by-step tutorials for Entra Internet Access and Entra Private Access. These tutorials offer specific steps and test scenarios to provide hands-on experience with Global Secure Access in your own environment. 
+Microsoft offers detailed step-by-step tutorials for Entra Internet Access and Entra Private Access. These tutorials offer specific steps and test scenarios to provide hands-on experience with Global Secure Access in your own environment. The tutorials also provide helpful tips and explanations behind the *why* of the various features and capabilities.
 
 ### Tutorials
-- [Entra Internet Access Lab]()
-- [Entra Private Access Lab]()
+- [Entra Internet Access Lab](https://learn.microsoft.com/entra/global-secure-access/tutorial-internet-access-introduction)
+- [Entra Private Access Lab](https://learn.microsoft.com/entra/global-secure-access/tutorial-private-access-introduction)
 - *Internet Access for Microsoft Services Lab coming soon*
 
 ### Lab Environment

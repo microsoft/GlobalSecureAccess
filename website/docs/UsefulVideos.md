@@ -1,7 +1,7 @@
 ---
 title: Useful Videos
 ---
-#### Deep Dive on Microsoft Entra Private Access
+### Deep Dive on Microsoft Entra Private Access
 <iframe
 	width="560"
 	height="315"
@@ -13,7 +13,7 @@ title: Useful Videos
 	allowfullscreen
 ></iframe>
 
-#### Deep Dive on Microsoft Entra Internet Access
+### Deep Dive on Microsoft Entra Internet Access
 <iframe
 	width="560"
 	height="315"
@@ -25,7 +25,7 @@ title: Useful Videos
 	allowfullscreen
 ></iframe>
 
-#### How to Migrate from Legacy VPNs to Entra Private Access (Real Strategies from a Veteran)
+### How to Migrate from Legacy VPNs to Entra Private Access (Real Strategies from a Veteran)
 <iframe
 	width="560"
 	height="315"
@@ -37,7 +37,7 @@ title: Useful Videos
 	allowfullscreen
 ></iframe>
 
-#### How Microsoft Entra Global Secure Access is changing the game for enterprise network security!
+### How Microsoft Entra Global Secure Access is changing the game for enterprise network security!
 <iframe
 	width="560"
 	height="315"

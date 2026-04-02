@@ -15,6 +15,6 @@ Solutions you can migrate from using this tool include:
  - Zscaler
  - Defender for Endpoint
 
-**For detailed documentation and access to the tool, navigate to** https://aka.ms/Migrate2GSA
+For detailed documentation and access to the tool, navigate to https://aka.ms/Migrate2GSA.
 
 ---
