@@ -19,7 +19,7 @@ const sidebars = {
     {
       type: 'doc',
       id: 'TutorialsAndLabs',
-      label: 'Tutorials and Labs',
+      label: 'POCs and Labs',
     },
     {
       type: 'doc',

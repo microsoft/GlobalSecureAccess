@@ -9,6 +9,8 @@ Before deploying Entra Private Access at scale, organizations should plan to pro
 
 You can access the tool at https://aka.ms/gsaPAPlanner.
 
+![alt text](./img/PAPlanner.png)
+
 Microsoft's official sizing guidance can be found [here](https://learn.microsoft.com/entra/global-secure-access/concept-connectors#specifications-and-sizing-requirements). 
 
 ---
