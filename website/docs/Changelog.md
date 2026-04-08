@@ -2,6 +2,10 @@
 sidebar_position: 150
 title:  📝 Changelog
 ---
+**Apr 2 2026**
+* Removed legacy content now covered by official Microsoft documentation and simplified the local docs set.
+* Reduced the sidebar to the current focused experience: GSA Migration tool, Connector Sizing Tool, GSA TraceRT, Useful Videos, Tutorials and Labs, and Archives.
+
 **Oct 10 2025**
 * Added references to Migrate2GSA
 

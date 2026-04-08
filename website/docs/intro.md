@@ -3,53 +3,47 @@ sidebar_position: 100
 slug: /
 title: Overview
 ---
-# Welcome to the Global Secure Access Community Resources Hub
-### Maintained by the Global Secure Access Customer Engineering Team
+# Global Secure Access Community Resources Hub
+
+**Maintained by the Global Secure Access Customer Engineering Team.** Use this site as a quick-start companion for practical tools, demos, and guidance around Microsoft Entra Internet Access and Microsoft Entra Private Access.
 
 Get back to this site using this short URL https://aka.ms/GlobalSecureAccessCommunity
 
-> Master Microsoft's Security Service Edge (SSE) solution by becoming an expert in **Microsoft Entra Internet Access** and **Microsoft Entra Private Access**.
+Looking for the *Entra Identity Governance* version of this site? -> https://microsoft.github.io/EntraIDGovernance-Training/
 
-Looking for the Entra Identity Governance version of this site? https://microsoft.github.io/EntraIDGovernance-Training/
+## Start Here
 
-## 🔐 Unlock the power of identity-centric secure network access
+- [POCs and Labs](./TutorialsAndLabs.md)
+- [Useful Videos](./UsefulVideos.md)
+- [GSA Migration Tool](./Migrate2GSA.md)
+- [GSA TraceRT](./GSA-TraceRT.md)
+- [Connector Sizing Tool](./PAConnectorSizing.md)
+- [Archives](./Archives/InstallWindowsClientWithIntune.md)
+- [Change Log](./Changelog.md)
 
-Welcome to our community hub dedicated to Global Secure Access – the unifying term for **Microsoft Entra Internet Access** and **Microsoft Entra Private Access**. We designed this comprehensive resource hub to guide you through the intricacies of deploying a solution that is uniquely built: it converges network, identity, and endpoint access controls so you can secure access to any app or resource, from anywhere. Whether you're a seasoned professional or just starting, here you'll find the tools, documentation, and training materials to master the art of Global Secure Access.
+## Official Microsoft Documentation
 
-## 🚀 Getting Started
+### Getting Started
+- [Global Secure Access overview and licensing](https://learn.microsoft.com/entra/global-secure-access/overview-what-is-global-secure-access)
+- [Microsoft SSE deployment guides](https://learn.microsoft.com/entra/architecture/gsa-deployment-guide-intro)
+- [Microsoft SSE proof-of-concept guidance](https://learn.microsoft.com/entra/architecture/gsa-poc-guidance-intro)
+- [Microsoft Entra Internet Access documentation](https://learn.microsoft.com/entra/global-secure-access/concept-internet-access)
+- [Microsoft Entra Private Access documentation](https://learn.microsoft.com/entra/global-secure-access/concept-private-access)
 
- > Explore available technical tutorials to understand the core concepts and get deeper dives of these solutions.
+### Global Secure Access Coexistence 
 
-### Microsoft's SSE solution
+If you're already using one of these solutions, you can deploy Global Secure Access side-by-side. Follow these instructions on how to properly configure coexistence. If instead you want to migrate from one of these tools, check out the [GSA Migration Tool](./Migrate2GSA.md).
 
-[Accelerate your Zero Trust journey with unified access controls | Ignite 2023](https://www.youtube.com/watch?v=_EGK57wwHfs)
-
-### Microsoft Entra Internet Access
-
-[Microsoft Mechanics: Identity-centric Internet Access protections](https://www.youtube.com/watch?v=-dKzwX5tRkg)
-
-[John Savill's Technical Training: Protecting Against Credential and Token Theft](https://youtu.be/toytJf1rmV4?si=jZpZ7jC-msgTV5ss&t=1460)
-
-[John Savill's Technical Training: Deep Dive on Microsoft Entra Internet Access](https://www.youtube.com/watch?v=844s2bpA1aU)
-
-### Microsoft Entra Private Access
-
-[Microsoft Mechanics: Replace VPNs for on-premises resources](https://www.youtube.com/watch?v=_dw2JVqA4E8)
-
-[John Savill's Technical Training: Active Directory Access with Microsoft Entra Private Access](https://www.youtube.com/watch?v=qdNzvy5U3Sw)
-
-[John Savill's Technical Training: Deep Dive on Microsoft Entra Private Access](https://www.youtube.com/watch?v=RsxxsEzQhrM)
-
-## 🪙 Licensing
-
-### Global Secure Access
-
-[Visit the Global Secure Access licensing documentation](https://learn.microsoft.com/entra/global-secure-access/overview-what-is-global-secure-access#licensing-overview)
+| Partner Solution | Coexistence Documentation |
+|---|---|
+| **Cisco VPN** | https://learn.microsoft.com/entra/global-secure-access/how-to-cisco-vpn-coexistence |
+| **Cisco Secure Access** | https://learn.microsoft.com/entra/global-secure-access/how-to-cisco-secure-access-coexistence?tabs=cisco-secure-access-portal |
+| **Cisco Umbrella** | https://learn.microsoft.com/entra/global-secure-access/how-to-cisco-coexistence?tabs=cisco-umbrella-portal |
+| **Netskope** | https://learn.microsoft.com/entra/global-secure-access/how-to-netskope-coexistence |
+| **Palo Alto** | https://learn.microsoft.com/entra/global-secure-access/how-to-palo-alto-coexistence |
+| **Zscaler** | https://learn.microsoft.com/entra/global-secure-access/how-to-zscaler-coexistence |
 
 
-## ⏩ Deployment Guides for Proof of Concepts (PoCs)
 
-Check out these valuable resources from Microsoft for step-by-step instructions to perform a Proof of Concept (PoC)
 
-- [Microsoft's SSE Solution Deployment Guides](https://aka.ms/ssedeploy)
-  
+---

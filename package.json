@@ -1,5 +1,11 @@
 {
   "dependencies": {
     "react-markdown": "^10.1.0"
+  },
+  "scripts": {
+    "start": "npm --prefix website start",
+    "build": "npm --prefix website build",
+    "serve": "npm --prefix website serve",
+    "clear": "npm --prefix website clear"
   }
 }
