@@ -8,7 +8,7 @@
 const VersionChecker = (() => {
     
     // Configuration
-    const GIST_URL = 'https://raw.githubusercontent.com/tdetzner/GSA-PrivateAccess-Connector-Planner/main/version.json';
+    const GIST_URL = 'https://raw.githubusercontent.com/microsoft/GlobalSecureAccess/main/website/static/Tools/GSA-PA-Planner/version.json';
     const CHECK_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
     const STORAGE_KEY_LAST_CHECK = 'lastVersionCheck';
     const STORAGE_KEY_LAST_REMOTE_VERSION = 'lastRemoteVersion';
