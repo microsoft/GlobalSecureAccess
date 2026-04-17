@@ -1,0 +1,153 @@
+{
+  "deploymentName": "Global Private Access Deployment - Sample Data",
+  "generatedDate": "2024-01-15T10:30:00Z",
+  "totalSites": 4,
+  "sites": [
+    {
+      "id": "na-east-001",
+      "name": "North America - East",
+      "region": "North America",
+      "location": {
+        "city": "New York",
+        "country": "USA",
+        "coordinates": {
+          "lat": 40.7128,
+          "lng": -74.006
+        }
+      },
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Genoa (4th Gen, 2022)",
+        "coresPerServer": 96,
+        "cpuPerfMultiplier": 1.85,
+        "memoryGB": 256,
+        "nicLinkSpeed": 25600,
+        "deploymentType": "cloud",
+        "virtCpuOverhead": 5,
+        "virtMemoryOverhead": 3,
+        "virtNetworkOverhead": 8
+      },
+      "workloadConfig": {
+        "expectedConcurrentUsers": 150000,
+        "requestsPerUser": 4,
+        "cpuCostPer1000": 5,
+        "memoryCostPer1000": 1024,
+        "avgRequestSize": 2,
+        "avgResponseSize": 16,
+        "nicOffloads": true,
+        "nicCpuReduction": 30
+      }
+    },
+    {
+      "id": "eu-west-001",
+      "name": "Europe - West",
+      "region": "Europe",
+      "location": {
+        "city": "London",
+        "country": "UK",
+        "coordinates": {
+          "lat": 51.5074,
+          "lng": -0.1278
+        }
+      },
+      "serverConfig": {
+        "cpuModel": "Intel Xeon Gold 6548Y+ (Emerald Rapids, 5th Gen, 2024)",
+        "coresPerServer": 64,
+        "cpuPerfMultiplier": 1.59,
+        "memoryGB": 192,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "on-prem-vm",
+        "virtCpuOverhead": 8,
+        "virtMemoryOverhead": 4,
+        "virtNetworkOverhead": 15
+      },
+      "workloadConfig": {
+        "expectedConcurrentUsers": 120000,
+        "requestsPerUser": 3,
+        "cpuCostPer1000": 5,
+        "memoryCostPer1000": 1024,
+        "avgRequestSize": 2,
+        "avgResponseSize": 16,
+        "nicOffloads": true,
+        "nicCpuReduction": 30
+      }
+    },
+    {
+      "id": "apac-south-001",
+      "name": "Asia Pacific - South",
+      "region": "Asia",
+      "location": {
+        "city": "Singapore",
+        "country": "Singapore",
+        "coordinates": {
+          "lat": 1.3521,
+          "lng": 103.8198
+        }
+      },
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Milan (3rd Gen, 2021)",
+        "coresPerServer": 64,
+        "cpuPerfMultiplier": 1.22,
+        "memoryGB": 128,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "cloud",
+        "virtCpuOverhead": 5,
+        "virtMemoryOverhead": 3,
+        "virtNetworkOverhead": 8
+      },
+      "workloadConfig": {
+        "expectedConcurrentUsers": 80000,
+        "requestsPerUser": 2,
+        "cpuCostPer1000": 5,
+        "memoryCostPer1000": 1024,
+        "avgRequestSize": 2,
+        "avgResponseSize": 16,
+        "nicOffloads": true,
+        "nicCpuReduction": 30
+      }
+    },
+    {
+      "id": "latam-central-001",
+      "name": "Latin America - Central",
+      "region": "North America",
+      "location": {
+        "city": "Sao Paulo",
+        "country": "Brazil",
+        "coordinates": {
+          "lat": -23.5505,
+          "lng": -46.6333
+        }
+      },
+      "serverConfig": {
+        "cpuModel": "Intel Xeon Platinum 8380 (Ice Lake, 3rd Gen, 2021)",
+        "coresPerServer": 80,
+        "cpuPerfMultiplier": 1.54,
+        "memoryGB": 192,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "bare-metal",
+        "virtCpuOverhead": 0,
+        "virtMemoryOverhead": 0,
+        "virtNetworkOverhead": 0
+      },
+      "workloadConfig": {
+        "expectedConcurrentUsers": 50000,
+        "requestsPerUser": 2,
+        "cpuCostPer1000": 5,
+        "memoryCostPer1000": 1024,
+        "avgRequestSize": 2,
+        "avgResponseSize": 16,
+        "nicOffloads": false,
+        "nicCpuReduction": 0
+      }
+    }
+  ],
+  "globalDefaults": {
+    "cpuCapacityPerCore": 85,
+    "targetNicUtil": 80,
+    "growthRate": 10,
+    "baseIdleCpu": 2,
+    "baseIdleMemory": 512,
+    "mtuPayload": 1400,
+    "packetProcCost": 0.02,
+    "protocolOverhead": 6
+  }
+}

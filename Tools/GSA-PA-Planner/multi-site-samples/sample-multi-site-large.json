@@ -1,0 +1,569 @@
+{
+  "deploymentName": "Global Enterprise Deployment - 24 Sites",
+  "generatedDate": "2024-01-15T10:30:00Z",
+  "totalSites": 24,
+  "sites": [
+    {
+      "id": "na-ny-001",
+      "name": "North America - New York",
+      "region": "North America",
+      "location": {
+        "city": "New York",
+        "country": "USA",
+        "coordinates": { "lat": 40.7128, "lng": -74.006 }
+      },
+      "expectedUsers": 180000,
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Genoa (4th Gen, 2022)",
+        "coresPerServer": 96,
+        "cpuPerfMultiplier": 1.85,
+        "memoryGB": 256,
+        "nicLinkSpeed": 25600,
+        "deploymentType": "cloud"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 4,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "na-sf-002",
+      "name": "North America - San Francisco",
+      "region": "North America",
+      "location": {
+        "city": "San Francisco",
+        "country": "USA",
+        "coordinates": { "lat": 37.7749, "lng": -122.4194 }
+      },
+      "expectedUsers": 150000,
+      "serverConfig": {
+        "cpuModel": "Intel Xeon Platinum 8380 (Ice Lake, 3rd Gen, 2021)",
+        "coresPerServer": 80,
+        "cpuPerfMultiplier": 1.54,
+        "memoryGB": 192,
+        "nicLinkSpeed": 25600,
+        "deploymentType": "cloud"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 3,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "na-ch-003",
+      "name": "North America - Chicago",
+      "region": "North America",
+      "location": {
+        "city": "Chicago",
+        "country": "USA",
+        "coordinates": { "lat": 41.8781, "lng": -87.6298 }
+      },
+      "expectedUsers": 95000,
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Milan (3rd Gen, 2021)",
+        "coresPerServer": 64,
+        "cpuPerfMultiplier": 1.22,
+        "memoryGB": 128,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "on-prem-vm"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 3,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "na-to-004",
+      "name": "North America - Toronto",
+      "region": "North America",
+      "location": {
+        "city": "Toronto",
+        "country": "Canada",
+        "coordinates": { "lat": 43.6532, "lng": -79.3832 }
+      },
+      "expectedUsers": 75000,
+      "serverConfig": {
+        "cpuModel": "Intel Xeon Gold 6548Y+ (Emerald Rapids, 5th Gen, 2024)",
+        "coresPerServer": 64,
+        "cpuPerfMultiplier": 1.59,
+        "memoryGB": 192,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "on-prem-vm"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 2,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "eu-lon-005",
+      "name": "Europe - London",
+      "region": "Europe",
+      "location": {
+        "city": "London",
+        "country": "UK",
+        "coordinates": { "lat": 51.5074, "lng": -0.1278 }
+      },
+      "expectedUsers": 160000,
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Genoa (4th Gen, 2022)",
+        "coresPerServer": 96,
+        "cpuPerfMultiplier": 1.85,
+        "memoryGB": 256,
+        "nicLinkSpeed": 25600,
+        "deploymentType": "cloud"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 4,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "eu-fra-006",
+      "name": "Europe - Frankfurt",
+      "region": "Europe",
+      "location": {
+        "city": "Frankfurt",
+        "country": "Germany",
+        "coordinates": { "lat": 50.1109, "lng": 8.6821 }
+      },
+      "expectedUsers": 140000,
+      "serverConfig": {
+        "cpuModel": "Intel Xeon 6 (Granite Rapids 6th Gen)",
+        "coresPerServer": 128,
+        "cpuPerfMultiplier": 1.75,
+        "memoryGB": 384,
+        "nicLinkSpeed": 25600,
+        "deploymentType": "cloud"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 4,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "eu-par-007",
+      "name": "Europe - Paris",
+      "region": "Europe",
+      "location": {
+        "city": "Paris",
+        "country": "France",
+        "coordinates": { "lat": 48.8566, "lng": 2.3522 }
+      },
+      "expectedUsers": 110000,
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Milan (3rd Gen, 2021)",
+        "coresPerServer": 64,
+        "cpuPerfMultiplier": 1.22,
+        "memoryGB": 192,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "on-prem-vm"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 3,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "eu-ams-008",
+      "name": "Europe - Amsterdam",
+      "region": "Europe",
+      "location": {
+        "city": "Amsterdam",
+        "country": "Netherlands",
+        "coordinates": { "lat": 52.3676, "lng": 4.9041 }
+      },
+      "expectedUsers": 85000,
+      "serverConfig": {
+        "cpuModel": "Intel Xeon Platinum 8380 (Ice Lake, 3rd Gen, 2021)",
+        "coresPerServer": 80,
+        "cpuPerfMultiplier": 1.54,
+        "memoryGB": 192,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "on-prem-vm"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 3,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "eu-mad-009",
+      "name": "Europe - Madrid",
+      "region": "Europe",
+      "location": {
+        "city": "Madrid",
+        "country": "Spain",
+        "coordinates": { "lat": 40.4168, "lng": -3.7038 }
+      },
+      "expectedUsers": 65000,
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Rome (2nd Gen)",
+        "coresPerServer": 64,
+        "cpuPerfMultiplier": 1.0,
+        "memoryGB": 128,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "on-prem-vm"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 2,
+        "nicOffloads": false
+      }
+    },
+    {
+      "id": "apac-tok-010",
+      "name": "Asia Pacific - Tokyo",
+      "region": "Japan",
+      "location": {
+        "city": "Tokyo",
+        "country": "Japan",
+        "coordinates": { "lat": 35.6762, "lng": 139.6503 }
+      },
+      "expectedUsers": 135000,
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Genoa (4th Gen, 2022)",
+        "coresPerServer": 96,
+        "cpuPerfMultiplier": 1.85,
+        "memoryGB": 256,
+        "nicLinkSpeed": 25600,
+        "deploymentType": "cloud"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 4,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "apac-sin-011",
+      "name": "Asia Pacific - Singapore",
+      "region": "Asia",
+      "location": {
+        "city": "Singapore",
+        "country": "Singapore",
+        "coordinates": { "lat": 1.3521, "lng": 103.8198 }
+      },
+      "expectedUsers": 120000,
+      "serverConfig": {
+        "cpuModel": "Intel Xeon Gold 6548Y+ (Emerald Rapids, 5th Gen, 2024)",
+        "coresPerServer": 64,
+        "cpuPerfMultiplier": 1.59,
+        "memoryGB": 192,
+        "nicLinkSpeed": 25600,
+        "deploymentType": "cloud"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 3,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "apac-syd-012",
+      "name": "Asia Pacific - Sydney",
+      "region": "Australia",
+      "location": {
+        "city": "Sydney",
+        "country": "Australia",
+        "coordinates": { "lat": -33.8688, "lng": 151.2093 }
+      },
+      "expectedUsers": 90000,
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Milan (3rd Gen, 2021)",
+        "coresPerServer": 64,
+        "cpuPerfMultiplier": 1.22,
+        "memoryGB": 128,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "cloud"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 3,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "apac-hk-013",
+      "name": "Asia Pacific - Hong Kong",
+      "region": "Asia",
+      "location": {
+        "city": "Hong Kong",
+        "country": "China",
+        "coordinates": { "lat": 22.3193, "lng": 114.1694 }
+      },
+      "expectedUsers": 85000,
+      "serverConfig": {
+        "cpuModel": "Intel Xeon Platinum 8380 (Ice Lake, 3rd Gen, 2021)",
+        "coresPerServer": 80,
+        "cpuPerfMultiplier": 1.54,
+        "memoryGB": 192,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "on-prem-vm"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 2,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "apac-mum-014",
+      "name": "Asia Pacific - Mumbai",
+      "region": "Asia",
+      "location": {
+        "city": "Mumbai",
+        "country": "India",
+        "coordinates": { "lat": 19.076, "lng": 72.8777 }
+      },
+      "expectedUsers": 110000,
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Genoa (4th Gen, 2022)",
+        "coresPerServer": 96,
+        "cpuPerfMultiplier": 1.85,
+        "memoryGB": 256,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "cloud"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 3,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "latam-sp-015",
+      "name": "Latin America - Sao Paulo",
+      "region": "North America",
+      "location": {
+        "city": "Sao Paulo",
+        "country": "Brazil",
+        "coordinates": { "lat": -23.5505, "lng": -46.6333 }
+      },
+      "expectedUsers": 75000,
+      "serverConfig": {
+        "cpuModel": "Intel Xeon Sapphire Rapids (4th Gen)",
+        "coresPerServer": 112,
+        "cpuPerfMultiplier": 1.54,
+        "memoryGB": 256,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "bare-metal"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 2,
+        "nicOffloads": false
+      }
+    },
+    {
+      "id": "latam-mex-016",
+      "name": "Latin America - Mexico City",
+      "region": "North America",
+      "location": {
+        "city": "Mexico City",
+        "country": "Mexico",
+        "coordinates": { "lat": 19.4326, "lng": -99.1332 }
+      },
+      "expectedUsers": 65000,
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Milan (3rd Gen, 2021)",
+        "coresPerServer": 64,
+        "cpuPerfMultiplier": 1.22,
+        "memoryGB": 128,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "on-prem-vm"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 2,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "latam-bue-017",
+      "name": "Latin America - Buenos Aires",
+      "region": "North America",
+      "location": {
+        "city": "Buenos Aires",
+        "country": "Argentina",
+        "coordinates": { "lat": -34.6037, "lng": -58.3816 }
+      },
+      "expectedUsers": 45000,
+      "serverConfig": {
+        "cpuModel": "Intel Xeon E5-v3 (2014)",
+        "coresPerServer": 24,
+        "cpuPerfMultiplier": 1.0,
+        "memoryGB": 64,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "bare-metal"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 2,
+        "nicOffloads": false
+      }
+    },
+    {
+      "id": "latam-san-018",
+      "name": "Latin America - Santiago",
+      "region": "North America",
+      "location": {
+        "city": "Santiago",
+        "country": "Chile",
+        "coordinates": { "lat": -33.4489, "lng": -70.6693 }
+      },
+      "expectedUsers": 35000,
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Rome (2nd Gen)",
+        "coresPerServer": 64,
+        "cpuPerfMultiplier": 1.0,
+        "memoryGB": 128,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "on-prem-vm"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 2,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "mena-dub-019",
+      "name": "Middle East - Dubai",
+      "region": "Europe",
+      "location": {
+        "city": "Dubai",
+        "country": "UAE",
+        "coordinates": { "lat": 25.2048, "lng": 55.2708 }
+      },
+      "expectedUsers": 80000,
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Genoa (4th Gen, 2022)",
+        "coresPerServer": 96,
+        "cpuPerfMultiplier": 1.85,
+        "memoryGB": 256,
+        "nicLinkSpeed": 25600,
+        "deploymentType": "cloud"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 3,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "mena-ist-020",
+      "name": "Middle East - Istanbul",
+      "region": "Europe",
+      "location": {
+        "city": "Istanbul",
+        "country": "Turkey",
+        "coordinates": { "lat": 41.0082, "lng": 28.9784 }
+      },
+      "expectedUsers": 60000,
+      "serverConfig": {
+        "cpuModel": "Intel Xeon Gold 6548Y+ (Emerald Rapids, 5th Gen, 2024)",
+        "coresPerServer": 64,
+        "cpuPerfMultiplier": 1.59,
+        "memoryGB": 192,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "on-prem-vm"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 2,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "mena-joh-021",
+      "name": "Middle East - Johannesburg",
+      "region": "Europe",
+      "location": {
+        "city": "Johannesburg",
+        "country": "South Africa",
+        "coordinates": { "lat": -26.2041, "lng": 28.0473 }
+      },
+      "expectedUsers": 50000,
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Milan (3rd Gen, 2021)",
+        "coresPerServer": 64,
+        "cpuPerfMultiplier": 1.22,
+        "memoryGB": 128,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "on-prem-vm"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 2,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "mena-cai-022",
+      "name": "Middle East - Cairo",
+      "region": "Europe",
+      "location": {
+        "city": "Cairo",
+        "country": "Egypt",
+        "coordinates": { "lat": 30.0444, "lng": 31.2357 }
+      },
+      "expectedUsers": 40000,
+      "serverConfig": {
+        "cpuModel": "Intel Xeon Platinum 8380 (Ice Lake, 3rd Gen, 2021)",
+        "coresPerServer": 80,
+        "cpuPerfMultiplier": 1.54,
+        "memoryGB": 128,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "bare-metal"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 2,
+        "nicOffloads": false
+      }
+    },
+    {
+      "id": "apac-seoul-023",
+      "name": "Asia Pacific - Seoul",
+      "region": "Asia",
+      "location": {
+        "city": "Seoul",
+        "country": "South Korea",
+        "coordinates": { "lat": 37.5665, "lng": 126.978 }
+      },
+      "expectedUsers": 95000,
+      "serverConfig": {
+        "cpuModel": "AMD EPYC Genoa-X (3D V-Cache)",
+        "coresPerServer": 96,
+        "cpuPerfMultiplier": 2.0,
+        "memoryGB": 256,
+        "nicLinkSpeed": 25600,
+        "deploymentType": "cloud"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 3,
+        "nicOffloads": true
+      }
+    },
+    {
+      "id": "eu-sto-024",
+      "name": "Europe - Stockholm",
+      "region": "Europe",
+      "location": {
+        "city": "Stockholm",
+        "country": "Sweden",
+        "coordinates": { "lat": 59.3293, "lng": 18.0686 }
+      },
+      "expectedUsers": 55000,
+      "serverConfig": {
+        "cpuModel": "Intel Xeon Gold 6548Y+ (Emerald Rapids, 5th Gen, 2024)",
+        "coresPerServer": 64,
+        "cpuPerfMultiplier": 1.59,
+        "memoryGB": 192,
+        "nicLinkSpeed": 10240,
+        "deploymentType": "cloud"
+      },
+      "workloadConfig": {
+        "requestsPerUser": 2,
+        "nicOffloads": true
+      }
+    }
+  ],
+  "globalDefaults": {
+    "cpuCapacityPerCore": 85,
+    "targetNicUtil": 80,
+    "growthRate": 10,
+    "baseIdleCpu": 2,
+    "baseIdleMemory": 512,
+    "mtuPayload": 1400,
+    "packetProcCost": 0.02,
+    "protocolOverhead": 6
+  }
+}
