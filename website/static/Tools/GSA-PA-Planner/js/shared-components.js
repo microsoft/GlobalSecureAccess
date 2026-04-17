@@ -43,7 +43,7 @@ const SharedComponents = (() => {
                 </div>
                 <div class="header-right">
                     <span class="version-badge-header" title="Version ${VERSION}">${VERSION}</span>
-                    <a href="https://github.com/tdetzner/GSA-PrivateAccess-Connector-Planner" 
+                    <a href="https://github.com/microsoft/GlobalSecureAccess" 
                        target="_blank" rel="noopener noreferrer" 
                        class="github-link" title="View on GitHub" aria-label="View on GitHub">
                         <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false">

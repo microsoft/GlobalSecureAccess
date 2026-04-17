@@ -107,7 +107,7 @@ If your users access a mix of applications, use **Protocol Blending** to build a
 
 ## Quick start
 
-1. Open the [live app](https://tdetzner.github.io/GSA-PrivateAccess-Connector-Planner/) or `index.html`
+1. Open the [live app](https://microsoft.github.io/GlobalSecureAccess/Tools/GSA-PA-Planner/) or `index.html`
 2. Choose **Single-Site** (one location) or **Multi-Site** (multi-region enterprise)
 3. Enter your concurrent user count and select a protocol profile
 4. Review the **Actual Demand** bar and the **Provisioning Scenarios** table
@@ -136,5 +136,5 @@ If your users access a mix of applications, use **Protocol Blending** to build a
 
 ---
 
-*For technical details on the calculation engine, see the [project repository](https://github.com/tdetzner/GSA-PrivateAccess-Connector-Planner).*
+*For technical details on the calculation engine, see the [project repository](https://github.com/microsoft/GlobalSecureAccess).*
 
