@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSA Private Access - Multi-Site Sizing Planner</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/shared-components.css">
+    <link rel="stylesheet" href="css/multi-site.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Test badge */
+        .test-badge {
+            background: #0078d4;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7em;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        
+        /* Modal Title Section with Server Count Badge */
+        .modal-title-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-servers-badge {
+            background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 0.85em;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 120, 212, 0.2);
+        }
+
+        .modal-servers-badge.single {
+            background: linear-gradient(135deg, #00a4ef 0%, #0078d4 100%);
+        }
+
+        .modal-servers-badge.multiple {
+            background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+        }
+
+        /* Scenario selector in modal */
+        .modal-scenario-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #f0f6fc;
+            border-bottom: 1px solid #d0e4f5;
+            font-size: 0.85em;
+        }
+
+        .modal-scenario-bar label {
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        .scenario-btn {
+            padding: 4px 14px;
+            border: 1px solid #ccc;
+            border-radius: 14px;
+            background: white;
+            font-size: 0.82em;
+            cursor: pointer;
+            transition: all 0.15s;
+            color: #444;
+        }
+
+        .scenario-btn:hover { border-color: #0078d4; color: #0078d4; }
+        .scenario-btn.active { background: #0078d4; border-color: #0078d4; color: white; font-weight: 600; }
+        .scenario-btn.active.conservative { background: #107C10; border-color: #107C10; }
+        .scenario-btn.active.balanced     { background: #0078d4; border-color: #0078d4; }
+        .scenario-btn.active.efficient    { background: #005a9e; border-color: #005a9e; }
+
+        /* Actual demand metrics bar */
+        .modal-demand-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: var(--bg-secondary, #f8f9fa);
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.82em;
+            color: var(--text-secondary, #555);
+            flex-wrap: wrap;
+        }
+
+        .modal-demand-bar .demand-label {
+            font-weight: 600;
+            color: #444;
+            margin-right: 4px;
+        }
+
+        .modal-demand-metric {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 10px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-weight: 600;
+            color: var(--primary-color, #0078d4);
+        }
+
+        .modal-demand-metric .metric-unit {
+            font-weight: 400;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        /* Dark Mode Overrides for inline modal styles */
+        [data-theme="dark"] .modal-scenario-bar {
+            background: var(--bg-color, #1a1a2e);
+            border-color: var(--border-color, #2d3a5a);
+            color: var(--text-secondary, #a0a0a0);
+        }
+
+        [data-theme="dark"] .modal-scenario-bar label {
+            color: var(--text-primary, #e8e8e8);
+        }
+
+        [data-theme="dark"] .scenario-btn {
+            background: var(--input-bg, #1e2d4d);
+            border-color: var(--border-color, #2d3a5a);
+            color: var(--text-secondary, #a0a0a0);
+        }
+
+        [data-theme="dark"] .scenario-btn:hover {
+            border-color: #4da6ff;
+            color: #4da6ff;
+        }
+
+        [data-theme="dark"] .modal-demand-bar {
+            background: var(--bg-color, #1a1a2e);
+            border-color: var(--border-color, #2d3a5a);
+        }
+
+        [data-theme="dark"] .modal-demand-bar .demand-label {
+            color: var(--text-primary, #e8e8e8);
+        }
+
+        [data-theme="dark"] .modal-demand-metric {
+            background: var(--input-bg, #1e2d4d);
+            border-color: var(--border-color, #2d3a5a);
+        }
+    </style>
+</head>
+<body data-shared-components-auto-init data-active-page="multi-site">
+    <!-- Shared Header (rendered by JS) -->
+    <header id="app-header"></header>
+
+    <!-- Shared Navigation (rendered by JS) -->
+    <nav class="nav-tabs" id="app-navigation"></nav>
+
+    <main class="container multi-site-container">
+        <!-- Disclaimer Banner -->
+        <aside class="disclaimer-banner" id="disclaimerBanner">
+            <svg class="disclaimer-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            </svg>
+            <div class="disclaimer-body">
+                <div class="disclaimer-header">
+                    <h3 class="disclaimer-title">Important: Capacity Planning Best Practices</h3>
+                    <button class="disclaimer-toggle" id="disclaimerToggle" title="Toggle disclaimer">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="disclaimer-content">
+                    <p>
+                        This sizing planner provides <strong>initial sizing estimates</strong> based on theoretical workload calculations.
+                        It does not replace proper server monitoring, performance testing, or considerations for elastic scaling in production environments.
+                    </p>
+                    <div class="disclaimer-recommendations">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                        </svg>
+                        <div class="disclaimer-recommendations-content">
+                            <h4>For production deployments, we recommend:</h4>
+                            <ul>
+                                <li>Implementing comprehensive monitoring and alerting</li>
+                                <li>Load testing with realistic workload patterns</li>
+                                <li>Planning for auto-scaling and high availability</li>
+                                <li>Regular capacity reviews and performance tuning</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="disclaimer-links">
+                        <strong>Learn more:</strong>
+                        <a href="https://learn.microsoft.com/en-us/entra/identity/app-proxy/application-proxy-high-availability-load-balancing" target="_blank" rel="noopener noreferrer">High availability and load balancing</a>
+                        <span class="disclaimer-separator">|</span>
+                        <a href="https://learn.microsoft.com/en-us/entra/global-secure-access/concept-private-access" target="_blank" rel="noopener noreferrer">Private Access concepts</a>
+                        <span class="disclaimer-separator">|</span>
+                        <a href="https://learn.microsoft.com/en-us/azure/well-architected/scalability/design-scale" target="_blank" rel="noopener noreferrer">Design for scaling</a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Configuration Name Section -->
+        <section class="config-header">
+            <div class="config-name-section">
+                <label for="configName">Configuration Name:</label>
+                <input type="text" id="configName" value="My Multi-Site Configuration" placeholder="Enter configuration name">
+            </div>
+            <div class="config-actions">
+                <button id="startNewBtn" class="btn btn-outline">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+                    </svg>
+                    Start New
+                </button>
+                <button id="importBtn" class="btn btn-secondary">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/>
+                    </svg>
+                    Import JSON
+                </button>
+                <button id="exportBtn" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                    </svg>
+                    Export JSON
+                </button>
+                <button id="exportPdfBtn" class="btn btn-export" title="Export as PDF">
+                    <svg viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M14,2H6C4.9,2,4,2.9,4,4v16c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V8L14,2z M16,18H8v-2h8V18z M16,14H8v-2h8V14z M13,9V3.5L18.5,9H13z"/>
+                    </svg>
+                    Export PDF
+                </button>
+                <input type="file" id="importFile" accept=".json" style="display: none;">
+            </div>
+        </section>
+
+        <!-- Global Server Configuration (Basic Mode) -->
+        <section class="panel global-config-panel" id="globalConfigPanel">
+            <h2>Default Server Configuration</h2>
+            <p class="panel-description">These settings apply to all <strong>new</strong> connector groups. In Advanced Mode, you can override these settings per group.</p>
+            
+            <div class="config-grid" id="globalConfigGrid">
+                <!-- Dropdowns will be dynamically generated from schema -->
+                <div class="loading">Loading schema...</div>
+            </div>
+        </section>
+
+        <!-- Connector Groups Table Section -->
+        <section class="panel groups-panel">
+            <div class="panel-header">
+                <div class="panel-title-row">
+                    <button class="expander-btn" id="groupsExpander" title="Collapse/Expand">
+                        <svg class="expander-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M7 10l5 5 5-5z"/>
+                        </svg>
+                    </button>
+                    <h2>Connector Groups</h2>
+                </div>
+                <button id="addGroupBtn" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
+                    Add Group
+                </button>
+            </div>
+            
+            <div class="table-container">
+                <table id="groupsTable">
+                    <thead>
+                        <tr>
+                            <th data-sort="name" onclick="handleSortClick('name')">
+                                Name <span class="sort-arrow">▲</span>
+                            </th>
+                            <th data-sort="region" onclick="handleSortClick('region')">
+                                Geo Region <span class="sort-arrow">▲</span>
+                            </th>
+                            <th data-sort="location" onclick="handleSortClick('location')">
+                                Location <span class="sort-arrow">▲</span>
+                            </th>
+                            <th data-sort="networkio" onclick="handleSortClick('networkio')">
+                                Network I/O <span class="sort-arrow">▲</span>
+                            </th>
+                            <th data-sort="users" onclick="handleSortClick('users')">
+                                Users <span class="sort-arrow">▲</span>
+                            </th>
+                            <th class="result-col" data-sort="servers" onclick="handleSortClick('servers')">
+                                Servers <span class="sort-arrow">▲</span>
+                            </th>
+                            <th class="result-col" data-sort="limiting" onclick="handleSortClick('limiting')">
+                                Limiting Factor <span class="sort-arrow">▲</span>
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="groupsTableBody">
+                        <!-- Connector groups will be rendered here -->
+                    </tbody>
+                </table>
+                <div id="emptyState" class="empty-state">
+                    <svg viewBox="0 0 24 24" width="48" height="48" fill="#ccc">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    <h3>No connector groups defined</h3>
+                    <p>Click "Add Group" to define your first connector group</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section class="panel summary-panel" id="summaryPanel" style="display: none;">
+            <h2>Capacity Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <div class="summary-value" id="totalGroups">0</div>
+                    <div class="summary-label">Total Groups</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-value" id="totalUsers">0</div>
+                    <div class="summary-label">Total Users</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-value" id="totalServers">0</div>
+                    <div class="summary-label">Total Servers</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-value" id="totalRegions">0</div>
+                    <div class="summary-label">Regions</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Cards Section -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <h2>Capacity Results by Region</h2>
+            <div id="resultsContainer" class="results-container">
+                <!-- Result cards will be rendered here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Add/Edit Connector Group Modal -->
+    <div id="groupModal" class="modal-overlay" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <h2 id="modalTitle">Add Connector Group</h2>
+                    <span id="modalServersCount" class="modal-servers-badge single">1 server</span>
+                </div>
+                <label class="toggle-container modal-advanced-toggle">
+                    <input type="checkbox" id="modalAdvancedModeToggle">
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label">Advanced Mode</span>
+                </label>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Actual demand display -->
+                <div class="modal-demand-bar" id="modalDemandBar">
+                    <span class="demand-label">Actual demand:</span>
+                    <span class="modal-demand-metric" id="modalDemandBw"><span id="modalDemandBwVal">—</span><span class="metric-unit">Gbps</span></span>
+                    <span class="modal-demand-metric" id="modalDemandCores"><span id="modalDemandCoresVal">—</span><span class="metric-unit">cores</span></span>
+                    <span class="modal-demand-metric" id="modalDemandMemory"><span id="modalDemandMemoryVal">—</span><span class="metric-unit">GB RAM</span></span>
+                </div>
+                <!-- Scenario selector -->
+                <div class="modal-scenario-bar">
+                    <label>Provisioning scenario:</label>
+                    <button type="button" class="scenario-btn conservative active" data-scenario="conservative"
+                        title="Conservative: 60% utilization, 40% headroom">Conservative (60%)</button>
+                    <button type="button" class="scenario-btn balanced" data-scenario="balanced"
+                        title="Balanced: 70% utilization, 30% headroom">Balanced (70%)</button>
+                    <button type="button" class="scenario-btn efficient" data-scenario="efficient"
+                        title="Efficient: 80% utilization, 20% headroom">Efficient (80%)</button>
+                </div>
+                <form id="groupForm">
+                    <input type="hidden" id="groupId">
+                    
+                    <!-- Group Information - stays static, not from schema -->
+                    <div class="form-section">
+                        <h3>Group Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="groupName">Group Name *</label>
+                                <input type="text" id="groupName" required placeholder="e.g., Paris-DC1">
+                            </div>
+                            <div class="form-group">
+                                <label for="groupRegion">Geo Region *</label>
+                                <input type="text" id="groupRegion" required placeholder="e.g., North America" list="regionsList">
+                                <datalist id="regionsList">
+                                    <option value="North America">
+                                    <option value="Europe">
+                                    <option value="Australia">
+                                    <option value="Asia">
+                                    <option value="Japan">
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="groupLocation">Location *</label>
+                                <input type="text" id="groupLocation" required placeholder="e.g., Paris, France">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sizing Inputs - rendered by shared schema form component -->
+                    <div id="modalFormContainer" class="modal-form-container">
+                        <!-- Will be populated by schemaFormComponent.render() -->
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div id="modalFaultToleranceBadge" class="modal-fault-tolerance-badge" style="display: none;">
+                    ⚠️ +1 for fault tolerance
+                </div>
+                <div class="modal-footer-buttons">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveGroupBtn">Save Group</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal-overlay" style="display: none;">
+        <div class="modal modal-small">
+            <div class="modal-header">
+                <h2>Confirm Delete</h2>
+                <button class="modal-close" id="closeDeleteModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete connector group "<span id="deleteGroupName"></span>"?</p>
+                <p class="warning-text">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shared Footer (rendered by JS) -->
+    <footer id="app-footer"></footer>
+
+    <!-- jsPDF for PDF Export (CDN with local fallback) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" 
+            onerror="this.onerror=null; this.src='lib/jspdf.umd.min.js';"
+            crossorigin="anonymous"></script>
+    
+    <!-- Load shared components FIRST -->
+    <script src="js/version-checker.js"></script>
+    <script src="js/shared-components.js"></script>
+    
+    <!-- Shared Schema Modules - MUST load FIRST (connectorGroups depends on schemaLoader) -->
+    <script src="js/schema-loader.js"></script>
+    <script src="js/schema-ui.js"></script>
+    <script src="js/schema-form-component.js"></script>
+    
+    <!-- Core Scripts (order matters: presets → blending → calculations) -->
+    <script src="js/preset-loader.js"></script>
+    <script src="js/protocol-blending.js"></script>
+    <script src="js/calculations.js"></script>
+    <script src="js/network-calculations.js"></script>
+    <script src="js/connectorGroups.js"></script>
+
+    <script src="js/pdf-export.js"></script>
+    
+    <!-- Schema-Driven Initialization - MUST run before multi-site-app.js -->
+    <script>
+        // ============================================
+        // Schema-Driven Multi-Site Initialization
+        // This script MUST run BEFORE multi-site-app.js to populate dropdowns
+        // ============================================
+
+        // Get schema and presets from shared module
+        const schema = schemaLoader.getSchema();
+        const presets = schemaLoader.getPresets();
+
+        // ============================================
+        // Create Schema-Driven Dropdown Helper
+        // ============================================
+
+        function createSchemaDropdown(presetId, elementId, labelText) {
+            const div = document.createElement('div');
+            div.className = 'form-group';
+            
+            const label = document.createElement('label');
+            label.htmlFor = elementId;
+            label.textContent = labelText;
+            
+            const select = document.createElement('select');
+            select.id = elementId;
+            
+            const options = schemaLoader.getPresetOptionsById(presetId);
+            options.forEach(opt => {
+                const option = document.createElement('option');
+                
+                // All presets use ID as value for consistency
+                option.value = opt.id;
+                
+                // Build option text with details
+                let text = opt.icon ? `${opt.icon} ` : '';
+                text += opt.name;
+                if (opt.coresPerServer) text += ` - ${opt.coresPerServer} cores`;
+                // Don't add speedMbps conversion for NIC speeds - just use the clean name
+                option.textContent = text;
+                
+                if (opt.isDefault) option.selected = true;
+                select.appendChild(option);
+            });
+            
+            div.appendChild(label);
+            div.appendChild(select);
+            return div;
+        }
+
+        // ============================================
+        // Populate Global Config Grid (synchronously)
+        // ============================================
+
+        function populateGlobalConfigGrid() {
+            const grid = document.getElementById('globalConfigGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            // Deployment Type
+            const deploymentDiv = createSchemaDropdown('deploymentTypes', 'globalDeploymentType', 'Deployment Type');
+            grid.appendChild(deploymentDiv);
+            
+            // CPU Preset
+            const cpuDiv = createSchemaDropdown('cpuModels', 'globalCpuPreset', 'CPU Preset');
+            grid.appendChild(cpuDiv);
+            
+            // Memory (keep as number input)
+            const memoryDiv = document.createElement('div');
+            memoryDiv.className = 'form-group';
+            memoryDiv.innerHTML = `
+                <label for="globalMemoryGB">Memory (GB)</label>
+                <input type="number" id="globalMemoryGB" value="16" min="1">
+            `;
+            grid.appendChild(memoryDiv);
+            
+            // NIC Speed
+            const nicDiv = createSchemaDropdown('nicSpeeds', 'globalNicSpeed', 'NIC Speed');
+            grid.appendChild(nicDiv);
+        }
+
+        // ============================================
+        // Run initialization immediately (synchronously)
+        // ============================================
+
+        console.log('Schema-driven multi-site: Populating global config grid...');
+        populateGlobalConfigGrid();
+        console.log('Schema-driven multi-site: Global config grid populated');
+    </script>
+    
+    <!-- Multi-Site App Script - loads AFTER schema components are ready -->
+    <script src="js/multi-site-app.js"></script>
+</body>
+</html>
