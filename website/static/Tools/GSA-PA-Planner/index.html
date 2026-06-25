@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSA Private Access - Sizing Planner (Offline)</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/shared-components.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .section-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .mode-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .mode-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .mode-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .mode-card:hover {
+            border-color: #0078d4;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 120, 212, 0.15);
+        }
+        
+        .mode-card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0078d4, #00a4ef);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .mode-card-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+        
+        .mode-card h2 {
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+        
+        .mode-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .mode-card-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .mode-card-features li {
+            padding: 8px 0;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .mode-card-features li::before {
+            content: "✓";
+            color: #0078d4;
+            font-weight: bold;
+        }
+        
+        .mode-card-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 20px;
+            color: #0078d4;
+            font-weight: 500;
+        }
+        
+        .mode-card-arrow svg {
+            width: 20px;
+            height: 20px;
+            margin-left: 8px;
+            transition: transform 0.2s;
+        }
+        
+        .mode-card:hover .mode-card-arrow svg {
+            transform: translateX(5px);
+        }
+        
+        /* Dark Mode Overrides */
+        [data-theme="dark"] .mode-card {
+            background: var(--panel-bg);
+        }
+        
+        [data-theme="dark"] .mode-card h2 {
+            color: var(--text-primary);
+        }
+        
+        [data-theme="dark"] .mode-card p {
+            color: var(--text-secondary);
+        }
+        
+        [data-theme="dark"] .mode-card-features li {
+            color: var(--text-secondary);
+        }
+        
+        /* Navigation Tabs */
+        .nav-tabs {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-tabs-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 5px;
+        }
+        .nav-tab {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 24px;
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            margin-bottom: -1px;
+        }
+        .nav-tab:hover {
+            color: #0078d4;
+            background: rgba(0, 120, 212, 0.05);
+        }
+        .nav-tab.active {
+            color: #0078d4;
+            border-bottom-color: #0078d4;
+            background: #f8fafc;
+        }
+        .nav-tab svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* ── Hero Section ──────────────────────────────── */
+        .hero-section {
+            background: linear-gradient(135deg, #003a70 0%, #0060b0 55%, #0090d8 100%);
+            text-align: center;
+            padding: 64px 24px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative depth circles */
+        .hero-section::before,
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+        }
+        .hero-section::before {
+            width: 700px;
+            height: 700px;
+            top: -280px;
+            right: -120px;
+        }
+        .hero-section::after {
+            width: 500px;
+            height: 500px;
+            bottom: -220px;
+            left: -100px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 22px;
+        }
+
+        .hero-eyebrow svg {
+            width: 13px;
+            height: 13px;
+            fill: white;
+        }
+
+        .hero-title {
+            font-size: 2.3rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.2;
+            margin: 0 auto 16px;
+            max-width: 640px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.03rem;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.75;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        /* Feature Badges */
+        .feature-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 34px;
+        }
+
+        .feature-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .feature-badge svg {
+            width: 13px;
+            height: 13px;
+            fill: rgba(255, 255, 255, 0.9);
+            flex-shrink: 0;
+        }
+
+        /* MS Learn Links */
+        .learn-links-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 6px 16px;
+        }
+
+        .learn-links-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .learn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.86rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .learn-link:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .learn-link svg {
+            width: 13px;
+            height: 13px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .learn-link-sep {
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        /* ── Section Bands ──────────────────────────────── */
+        .how-it-works-band {
+            background: #f0f6fc;
+            padding: 56px 0;
+        }
+
+        .cards-band {
+            background: white;
+            padding: 56px 0 72px;
+        }
+
+        /* ── How It Works ──────────────────────────────── */
+        .how-it-works {
+            margin-bottom: 0;
+        }
+
+        .section-heading {
+            text-align: center;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 28px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .step {
+            background: white;
+            border-radius: 12px;
+            padding: 28px 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, #0078d4, #00a4ef);
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 50%;
+            margin-bottom: 14px;
+        }
+
+        .step h3 {
+            font-size: 0.975rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            font-size: 0.865rem;
+            color: #666;
+            line-height: 1.65;
+            margin-bottom: 14px;
+        }
+
+        .step-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            color: #0078d4;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .step-link:hover {
+            text-decoration: underline;
+        }
+
+        .step-link svg {
+            width: 11px;
+            height: 11px;
+            fill: currentColor;
+        }
+
+        /* ── Choose Mode ────────────────────────────────── */
+        .cards-section-heading {
+            text-align: center;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .cards-section-sub {
+            text-align: center;
+            font-size: 0.93rem;
+            color: #666;
+            margin-bottom: 28px;
+        }
+
+        /* ── Dark Mode ──────────────────────────────────── */
+        [data-theme="dark"] .hero-section {
+            background: linear-gradient(135deg, #000d20 0%, #001e45 55%, #002d66 100%);
+        }
+
+        [data-theme="dark"] .how-it-works-band {
+            background: var(--bg-color);
+        }
+
+        [data-theme="dark"] .cards-band {
+            background: var(--panel-bg);
+        }
+
+        [data-theme="dark"] .section-heading,
+        [data-theme="dark"] .cards-section-heading {
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .cards-section-sub {
+            color: var(--text-secondary);
+        }
+
+        [data-theme="dark"] .step {
+            background: var(--input-bg);
+        }
+
+        [data-theme="dark"] .step h3 {
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .step p {
+            color: var(--text-secondary);
+        }
+
+        [data-theme="dark"] .step-link {
+            color: var(--primary-color);
+        }
+
+        /* ── Responsive ─────────────────────────────────── */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 44px 20px 40px;
+            }
+
+            .hero-title {
+                font-size: 1.75rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .how-it-works-band,
+            .cards-band {
+                padding: 36px 0 40px;
+            }
+        }
+    </style>
+</head>
+<body data-shared-components-auto-init data-active-page="home">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <!-- Shared Header (rendered by JS) -->
+    <header id="app-header"></header>
+
+    <!-- Shared Navigation (rendered by JS) -->
+    <nav class="nav-tabs" id="app-navigation" aria-label="Main navigation"></nav>
+
+    <main id="main-content">
+
+        <!-- ── Hero ──────────────────────────────────────── -->
+        <div class="hero-section">
+            <div class="hero-eyebrow">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                Microsoft Global Secure Access
+            </div>
+            <h2 class="hero-title">Right-size your Private Access deployment</h2>
+            <p class="hero-subtitle">
+                Global Secure Access Private Access uses lightweight connectors to broker secure,
+                identity-aware access to your on-premises and private cloud applications.
+                Use this planner to calculate exactly how many connectors you need, before you deploy.
+            </p>
+
+            <!-- Feature Badges -->
+            <div class="feature-badges">
+                <span class="feature-badge">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7C5.9 5 5 5.9 5 7v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"/></svg>
+                    CPU-aware sizing
+                </span>
+                <span class="feature-badge">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+                    Memory &amp; network aware
+                </span>
+                <span class="feature-badge">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    Multi-site planning
+                </span>
+                <span class="feature-badge">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+                    Cloud VM matching
+                </span>
+                <span class="feature-badge">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    PDF export
+                </span>
+                <span class="feature-badge">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    Works offline
+                </span>
+            </div>
+
+            <!-- MS Learn Links -->
+            <div class="learn-links-section">
+                <span class="learn-links-label">Learn more:</span>
+                <a class="learn-link" href="https://learn.microsoft.com/en-us/entra/global-secure-access/overview-what-is-global-secure-access" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+                    What is Global Secure Access
+                </a>
+                <span class="learn-link-sep">·</span>
+                <a class="learn-link" href="https://learn.microsoft.com/en-us/entra/global-secure-access/concept-private-access" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+                    Private Access overview
+                </a>
+                <span class="learn-link-sep">·</span>
+                <a class="learn-link" href="https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-connectors" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+                    Configure connectors
+                </a>
+            </div>
+        </div>
+
+        <!-- ── How It Works (light blue band) ───────────── -->
+        <div class="how-it-works-band">
+            <div class="section-inner">
+        <section class="how-it-works">
+            <h2 class="section-heading">How It Works</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Understand your topology</h3>
+                    <p>Map where your users and applications are located, then estimate peak concurrent sessions and expected traffic mix.</p>
+                    <a class="step-link" href="https://learn.microsoft.com/en-us/entra/global-secure-access/concept-private-access" target="_blank" rel="noopener noreferrer">
+                        Learn about Private Access
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+                    </a>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Configure your parameters</h3>
+                    <p>Enter your server hardware specs, workload profile, and growth targets. Use a built-in preset or build a custom configuration.</p>
+                    <a class="step-link" href="https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-connectors" target="_blank" rel="noopener noreferrer">
+                        Read the connector guide
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+                    </a>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get connector recommendations</h3>
+                    <p>The planner calculates the minimum connectors needed, accounting for fault tolerance, HA headroom, and future growth.</p>
+                    <a class="step-link" href="https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-connectors" target="_blank" rel="noopener noreferrer">
+                        Plan connector groups
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+            </div><!-- /.section-inner -->
+        </div><!-- /.how-it-works-band -->
+
+        <!-- ── Choose Mode (white band) ─────────────────── -->
+        <div class="cards-band">
+            <div class="section-inner">
+        <h2 class="cards-section-heading">Start now: Choose your planning mode</h2>
+        <p class="cards-section-sub">Start with a single site, or plan across multiple locations at once.</p>
+
+        <div class="mode-cards">
+            <!-- Single Site Mode -->
+            <a href="single-site.html" class="mode-card">
+                <div class="mode-card-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                </div>
+                <h2>Single Site</h2>
+                <p>Calculate capacity requirements for a single location or data center deployment.</p>
+                <ul class="mode-card-features">
+                    <li>Configure server hardware specifications</li>
+                    <li>Set workload parameters</li>
+                    <li>Get server count recommendations</li>
+                    <li>View resource utilization gauges</li>
+                </ul>
+                <div class="mode-card-arrow">
+                    Open Single Site Planner
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </div>
+            </a>
+            
+            <!-- Multi-Site Mode -->
+            <a href="multi-site.html" class="mode-card">
+                <div class="mode-card-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                </div>
+                <h2>Multi-Site</h2>
+                <p>Plan capacity across multiple connector groups, regions, and locations.</p>
+                <ul class="mode-card-features">
+                    <li>Define multiple connector groups</li>
+                    <li>Set per-group workload profiles</li>
+                    <li>View aggregated capacity results</li>
+                    <li>Export configuration to JSON</li>
+                </ul>
+                <div class="mode-card-arrow">
+                    Open Multi-Site Planner
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </div>
+            </a>
+        </div><!-- /.mode-cards -->
+            </div><!-- /.section-inner -->
+        </div><!-- /.cards-band -->
+    </main>
+
+    <!-- Shared Footer (rendered by JS) -->
+    <footer id="app-footer" role="contentinfo"></footer>
+
+    <!-- Load shared components and version checker -->
+    <script src="js/version-checker.js"></script>
+    <script src="js/shared-components.js"></script>
+</body>
+</html>
