@@ -8,8 +8,8 @@ import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Global Secure Access Training',
-  tagline: 'Microsoft Entra training for Global Secure Access',
+  title: 'Global Secure Access Community Resources Hub',
+  tagline: 'Global Secure Access Community Resources Hub',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -24,7 +24,6 @@ const config = {
   projectName: 'GlobalSecureAccess', // Usually your repo name.
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -36,6 +35,9 @@ const config = {
 
   markdown: {
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
   themes: [
     "@docusaurus/theme-mermaid",
@@ -52,8 +54,8 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/microsoft/GlobalSecureAccess/blob/main/src/',
+          //editUrl:
+          //  'https://github.com/microsoft/GlobalSecureAccess/blob/main/src/',
         },
         blog: false,
         theme: {
@@ -63,13 +65,20 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      "@gracefullight/docusaurus-plugin-microsoft-clarity",
+      { projectId: "o7yxn2mprq" },
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
       image: 'img/social-card.jpg',
       navbar: {
-        title: 'Global Secure Access - Training',
+        title: 'Global Secure Access - Community Resources Hub',
         logo: {
           alt: 'Global Secure Access - Logo',
           src: 'img/logo.svg',
@@ -135,13 +144,5 @@ const config = {
     }),
 };
 
-module.exports = {
-  plugins: [
-    [
-      "@gracefullight/docusaurus-plugin-microsoft-clarity",
-      { projectId: "o7yxn2mprq" },
-    ],
-  ],
-};
-
 export default config;
+
