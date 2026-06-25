@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSA Private Access - Schema-Driven Sizing Planner</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/shared-components.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Test badge */
+        .test-badge {
+            background: #0078d4;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7em;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        /* Schema-driven form loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary, #666);
+        }
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            border: 2px solid var(--primary-color, #0078d4);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Cloud VM Recommendations Section */
+        .cloud-recommendations-section {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .cloud-recommendations-section h3 {
+            margin: 0 0 10px 0;
+            color: #0078d4;
+            font-size: 1.3em;
+        }
+        
+        .cloud-intro {
+            margin: 0 0 20px 0;
+            color: #666;
+        }
+        
+        .recommendation-card {
+            background: white;
+            border: 1px solid #d4d4d4;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.2s;
+        }
+        
+        .recommendation-card:hover {
+            border-color: #0078d4;
+            box-shadow: 0 2px 8px rgba(0,120,212,0.1);
+        }
+        
+        .recommendation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .vm-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #323130;
+            margin: 0 0 5px 0;
+        }
+        
+        .vm-series {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .recommendation-price {
+            text-align: right;
+        }
+        
+        .hourly-cost {
+            color: #666;
+            font-size: 0.85em;
+        }
+        
+        .cost-inline {
+            font-size: 0.75em;
+            font-weight: 400;
+            color: #666;
+            margin-left: 4px;
+        }
+        
+        .recommendation-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .spec-icon {
+            color: #0078d4;
+            font-weight: bold;
+        }
+        
+        .spec-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .spec-value {
+            font-weight: 600;
+            color: #323130;
+        }
+        
+        .recommendation-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+        
+        .badge-success {
+            background: #e7f4e4;
+            color: #0b6a0b;
+        }
+        
+        .badge-warning {
+            background: #fff4ce;
+            color: #8a6116;
+        }
+        
+        .badge-info {
+            background: #e6f2fa;
+            color: #004578;
+        }
+        
+        .badge-primary {
+            background: #deecf9;
+            color: #0078d4;
+        }
+        
+        .no-recommendations {
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            background: white;
+            border-radius: 6px;
+        }
+
+        /* ================================= */
+        /* Network Results Panel             */
+        /* ================================= */
+        .requirements-summary {
+            background: var(--bg-secondary, #f8f9fa);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color, #e8e8e8);
+        }
+
+        .requirements-summary h3 {
+            margin: 0 0 15px 0;
+            font-size: 0.95em;
+            color: var(--text-secondary, #666);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scenario-label {
+            font-size: 0.8em;
+            padding: 2px 8px;
+            background: #107C10;
+            color: white;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .requirements-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .req-metric {
+            text-align: center;
+            padding: 14px 10px;
+            background: var(--bg-primary, white);
+            border-radius: 8px;
+            border: 1px solid var(--border-color, #e0e0e0);
+        }
+
+        .req-value {
+            display: block;
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--primary-color, #0078d4);
+            line-height: 1.2;
+        }
+
+        .req-label {
+            display: block;
+            font-size: 0.82em;
+            color: var(--text-secondary, #666);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .req-detail {
+            display: block;
+            font-size: 0.75em;
+            color: var(--text-secondary, #999);
+            margin-top: 3px;
+            font-style: italic;
+        }
+
+        /* Requirements card subtitle */
+        .req-subtitle {
+            margin: 8px 0 0 0;
+            font-size: 0.82em;
+            color: var(--text-secondary, #888);
+            font-style: italic;
+        }
+
+        /* Scenarios explanatory note */
+        .scenarios-note {
+            margin: 0 0 12px 0;
+            padding: 8px 12px;
+            background: rgba(0, 120, 212, 0.06);
+            border-left: 3px solid var(--primary-color, #0078d4);
+            border-radius: 0 4px 4px 0;
+            font-size: 0.82em;
+            color: var(--text-secondary, #555);
+            line-height: 1.5;
+        }
+
+        /* Server Scenarios Table */
+        .server-scenarios h3 {
+            margin: 0 0 8px 0;
+            font-size: 0.95em;
+            color: var(--text-secondary, #666);
+            font-weight: 600;
+        }
+
+        .scenarios-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82em;
+        }
+
+        .scenarios-table th {
+            background: var(--bg-secondary, #f4f4f4);
+            padding: 7px 8px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-secondary, #555);
+            border-bottom: 2px solid var(--border-color, #d8d8d8);
+            white-space: nowrap;
+        }
+
+        .scenarios-table th:first-child { text-align: left; }
+
+        .scenarios-table td {
+            padding: 8px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color, #f0f0f0);
+        }
+
+        .scenarios-table td:first-child { text-align: left; }
+
+        .scenarios-table tr.scenario-highlight {
+            background: rgba(0, 120, 212, 0.05);
+        }
+
+        .scenarios-table tr.workload-row td {
+            color: var(--text-secondary, #777);
+            font-style: italic;
+            background: var(--bg-secondary, #fafafa);
+            border-bottom: 2px solid var(--border-color, #d0d0d0);
+        }
+
+        .headroom-cell {
+            color: #107C10;
+            font-weight: 600;
+        }
+
+        .servers-required-cell { font-size: 1.05em; }
+
+        .ha-note {
+            font-size: 0.75rem;
+            color: #d97706;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        [data-theme="dark"] .ha-note { color: #fbbf24; }
+
+        /* VM Filter Bar */
+        .vm-filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            background: #f0f6fc;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .vm-filter-bar label {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .vm-filter-bar select {
+            padding: 6px 12px;
+            border: 1px solid #0078d4;
+            border-radius: 4px;
+            background: white;
+            color: #0078d4;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .vm-match-count {
+            margin-left: auto;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* Tooltip Icon */
+        .tooltip-icon {
+            display: inline-block;
+            cursor: help;
+            color: #666;
+            font-size: 0.85em;
+            margin-left: 3px;
+        }
+        
+        .tooltip-icon:hover {
+            color: #0078d4;
+        }
+        
+        /* Cost Total (inline smaller text) */
+        .cost-total {
+            display: block;
+            font-size: 0.8em;
+            color: #0078d4;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* ================================= */
+        /* Azure VM Recommendations Section  */
+        /* ================================= */
+        .vm-recs-section {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-top: 24px;
+            overflow: hidden;
+        }
+
+        .vm-recs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            cursor: pointer;
+            user-select: none;
+            background: #f4f9ff;
+            transition: background 0.15s;
+        }
+
+        .vm-recs-header:hover {
+            background: #e8f2ff;
+        }
+
+        .vm-recs-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vm-recs-title h3 {
+            margin: 0;
+            font-size: 1.0em;
+            color: #0078d4;
+            font-weight: 600;
+        }
+
+        .vm-recs-toggle-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            color: #0078d4;
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+            transition: transform 0.2s;
+        }
+
+        .vm-recs-toggle-btn:hover {
+            background: rgba(0, 120, 212, 0.1);
+        }
+
+        .vm-recs-body {
+            padding: 18px 20px 22px;
+            display: none;
+        }
+
+        .vm-recs-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .vm-recs-controls label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.88em;
+        }
+
+        .vm-recs-controls select {
+            padding: 5px 10px;
+            border: 1px solid #0078d4;
+            border-radius: 4px;
+            background: white;
+            color: #0078d4;
+            font-size: 0.85em;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .vm-recs-banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 7px;
+            background: #e6f2fa;
+            border-left: 3px solid #0078d4;
+            border-radius: 0 4px 4px 0;
+            padding: 9px 12px;
+            font-size: 0.82em;
+            color: #004578;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .vm-recs-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .vm-recs-placeholder {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .vm-recs-disclaimer {
+            font-size: 0.78em;
+            color: #777;
+            text-align: center;
+            padding: 6px 0 0;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .vm-recs-disclaimer a {
+            color: #0078d4;
+        }
+
+        .card-best-value {
+            border-color: #0078d4;
+            border-width: 2px;
+        }
+
+        .vm-rank-badge {
+            display: inline-block;
+            float: right;
+            margin-bottom: 6px;
+        }
+
+        /* Input panel title bar: title + Advanced Mode toggle in one row */
+        .input-panel-titlebar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .input-panel-titlebar h2 {
+            margin: 0;
+        }
+
+        .input-panel-titlebar .advanced-toggle-section {
+            padding: 0;
+            margin: 0;
+            border-bottom: none;
+        }
+
+        /* Memory + NIC side-by-side row */
+        .form-group-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* ================================= */
+        /* Dark Mode Overrides               */
+        /* ================================= */
+
+        /* Actual Demand card */
+        [data-theme="dark"] .requirements-summary {
+            background: var(--panel-bg);
+            border-color: var(--border-color);
+        }
+
+        [data-theme="dark"] .req-metric {
+            background: var(--input-bg);
+            border-color: var(--border-color);
+        }
+
+        /* Scenarios table */
+        [data-theme="dark"] .scenarios-table th {
+            background: var(--table-header-bg);
+            color: var(--text-secondary);
+            border-color: var(--border-color);
+        }
+
+        [data-theme="dark"] .scenarios-table td {
+            border-color: var(--border-color);
+        }
+
+        [data-theme="dark"] .scenarios-table tr.scenario-highlight {
+            background: rgba(0, 120, 212, 0.1);
+        }
+
+        [data-theme="dark"] .scenarios-table tr.workload-row td {
+            background: var(--bg-color);
+            border-color: var(--border-color);
+        }
+
+        [data-theme="dark"] .scenarios-note {
+            background: rgba(0, 120, 212, 0.1);
+            border-color: var(--primary-color);
+            color: var(--text-secondary);
+        }
+
+        /* Azure VM Recommendations section */
+        [data-theme="dark"] .vm-recs-section {
+            background: var(--panel-bg);
+            border-color: var(--border-color);
+        }
+
+        [data-theme="dark"] .vm-recs-header {
+            background: var(--input-bg);
+        }
+
+        [data-theme="dark"] .vm-recs-header:hover {
+            background: var(--bg-color);
+        }
+
+        [data-theme="dark"] .vm-recs-body {
+            background: var(--panel-bg);
+        }
+
+        [data-theme="dark"] .vm-recs-controls label {
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .vm-recs-controls select {
+            background: var(--input-bg);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .vm-recs-banner {
+            background: var(--info-bg);
+            border-color: var(--primary-color);
+            color: var(--text-secondary);
+        }
+
+        [data-theme="dark"] .vm-recs-disclaimer {
+            color: var(--text-secondary);
+            border-color: var(--border-color);
+        }
+
+        [data-theme="dark"] .vm-recs-placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* VM recommendation cards */
+        [data-theme="dark"] .recommendation-card {
+            background: var(--input-bg);
+            border-color: var(--border-color);
+        }
+
+        [data-theme="dark"] .recommendation-card:hover {
+            border-color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .vm-name {
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .vm-series,
+        [data-theme="dark"] .spec-label,
+        [data-theme="dark"] .hourly-cost,
+        [data-theme="dark"] .cost-inline {
+            color: var(--text-secondary);
+        }
+
+        [data-theme="dark"] .spec-value {
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .no-recommendations {
+            background: var(--input-bg);
+            color: var(--text-secondary);
+        }
+
+        [data-theme="dark"] .cloud-recommendations-section {
+            background: var(--panel-bg);
+            border-color: var(--border-color);
+        }
+
+        [data-theme="dark"] .cloud-intro {
+            color: var(--text-secondary);
+        }
+
+        [data-theme="dark"] .vm-filter-bar {
+            background: var(--input-bg);
+        }
+
+        [data-theme="dark"] .vm-filter-bar label {
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .vm-filter-bar select {
+            background: var(--input-bg);
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .vm-match-count {
+            color: var(--text-secondary);
+        }
+
+        [data-theme="dark"] .badge-success {
+            background: rgba(11, 106, 11, 0.2);
+            color: #6fcf6f;
+        }
+
+        [data-theme="dark"] .badge-warning {
+            background: rgba(138, 97, 22, 0.2);
+            color: #fbbf24;
+        }
+
+        [data-theme="dark"] .badge-info {
+            background: rgba(0, 69, 120, 0.3);
+            color: #4da6ff;
+        }
+
+        [data-theme="dark"] .badge-primary {
+            background: rgba(0, 120, 212, 0.2);
+            color: #4da6ff;
+        }
+    </style>
+</head>
+<body data-shared-components-auto-init data-active-page="single-site">
+    <!-- Shared Header (rendered by JS) -->
+    <header id="app-header"></header>
+
+    <!-- Shared Navigation (rendered by JS) -->
+    <nav class="nav-tabs" id="app-navigation"></nav>
+
+    <main class="container">
+        <!-- Disclaimer Banner - same as single-site.html -->
+        <aside class="disclaimer-banner" id="disclaimerBanner">
+            <svg class="disclaimer-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            </svg>
+            <div class="disclaimer-body">
+                <div class="disclaimer-header">
+                    <h3 class="disclaimer-title">Important: Capacity Planning Best Practices</h3>
+                    <button class="disclaimer-toggle" id="disclaimerToggle" title="Toggle disclaimer">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="disclaimer-content">
+                    <p>
+                        This sizing planner provides <strong>initial sizing estimates</strong> based on theoretical workload calculations.
+                        It does not replace proper server monitoring, performance testing, or considerations for elastic scaling in production environments.
+                    </p>
+                    <div class="disclaimer-recommendations">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                        </svg>
+                        <div class="disclaimer-recommendations-content">
+                            <h4>For production deployments, we recommend:</h4>
+                            <ul>
+                                <li>Implementing comprehensive monitoring and alerting</li>
+                                <li>Load testing with realistic workload patterns</li>
+                                <li>Planning for auto-scaling and high availability</li>
+                                <li>Regular capacity reviews and performance tuning</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="disclaimer-links">
+                        <strong>Learn more:</strong>
+                        <a href="https://learn.microsoft.com/en-us/entra/identity/app-proxy/application-proxy-high-availability-load-balancing" target="_blank" rel="noopener noreferrer">High availability and load balancing</a>
+                        <span class="disclaimer-separator">|</span>
+                        <a href="https://learn.microsoft.com/en-us/entra/global-secure-access/concept-private-access" target="_blank" rel="noopener noreferrer">Private Access concepts</a>
+                        <span class="disclaimer-separator">|</span>
+                        <a href="https://learn.microsoft.com/en-us/azure/well-architected/scalability/design-scale" target="_blank" rel="noopener noreferrer">Design for scaling</a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="main-layout">
+            <!-- Input Panel - dynamically generated from schema -->
+            <section class="panel input-panel">
+                <div class="input-panel-titlebar">
+                    <h2>Sizing Planner Inputs</h2>
+                    <div class="advanced-toggle-section">
+                        <label class="toggle-container">
+                            <input type="checkbox" id="advancedModeToggle">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label">Advanced Mode</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Form sections will be dynamically generated here -->
+                <div id="formContainer">
+                    <div class="loading">Loading schema and presets...</div>
+                </div>
+            </section>
+
+            <!-- Results Panel - same as single-site.html -->
+            <section class="panel results-panel">
+                <div class="results-header">
+                    <h2>Results</h2>
+                    <button id="exportPdfBtn" class="btn-export" title="Export as PDF">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M14,2H6C4.9,2,4,2.9,4,4v16c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V8L14,2z M16,18H8v-2h8V18z M16,14H8v-2h8V14z M13,9V3.5L18.5,9H13z"/>
+                        </svg>
+                        Export PDF
+                    </button>
+                </div>
+                
+                <!-- Actual Demand Summary -->
+                <div class="requirements-summary">
+                    <h3>Actual Demand <span class="scenario-label" style="background:#555">current workload</span></h3>
+                    <p class="req-subtitle" id="reqSubtitle">Bandwidth, CPU and memory generated by your workload settings — see the table below for how many servers to provision</p>
+                    <div class="requirements-metrics">
+                        <div class="req-metric">
+                            <span class="req-value" id="reqBandwidth">—</span>
+                            <span class="req-label">Bandwidth</span>
+                        </div>
+                        <div class="req-metric">
+                            <span class="req-value" id="reqCores">—</span>
+                            <span class="req-label">CPU Cores</span>
+                            <span class="req-detail" id="reqCoresDetail"></span>
+                        </div>
+                        <div class="req-metric">
+                            <span class="req-value" id="reqMemory">—</span>
+                            <span class="req-label">Memory</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Server Count by Scenario -->
+                <div class="server-scenarios">
+                    <h3>Servers Required by Scenario</h3>
+                    <p class="scenarios-note" id="scenariosNote">Loading…</p>
+                    <div style="overflow-x: auto;">
+                        <table class="scenarios-table">
+                            <thead>
+                                <tr>
+                                    <th title="How full infrastructure runs at peak — lower % means more spare headroom">Target Util</th>
+                                    <th title="Spare capacity above actual workload demand">Headroom</th>
+                                    <th>Bandwidth</th>
+                                    <th>Cores</th>
+                                    <th>Memory</th>
+                                    <th>Server(s)</th>
+                                    <th>Limiting</th>
+                                </tr>
+                            </thead>
+                            <tbody id="serverScenariosBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Azure VM Recommendations (collapsible, full-width) -->
+        <section class="vm-recs-section" id="vmRecsSection">
+            <div class="vm-recs-header" id="vmRecsToggle" role="button" tabindex="0" aria-controls="vmRecsBody">
+                <div class="vm-recs-title">
+                    <span>☁️</span>
+                    <h3>Azure VM Recommendations</h3>
+                </div>
+                <button class="vm-recs-toggle-btn" id="vmRecsToggleBtn" aria-label="Toggle VM recommendations" aria-expanded="false">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+                </button>
+            </div>
+            <div class="vm-recs-body" id="vmRecsBody">
+                <div class="vm-recs-controls">
+                    <label for="azureRegionSelect">Azure Region:</label>
+                    <select id="azureRegionSelect">
+                        <option value="eastus">East US (Virginia, USA)</option>
+                        <option value="westus2">West US 2 (Washington, USA)</option>
+                        <option value="westeurope">West Europe (Netherlands)</option>
+                        <option value="southeastasia">Southeast Asia (Singapore)</option>
+                        <option value="australiaeast">Australia East (NSW, Australia)</option>
+                    </select>
+                    <label for="vmSortSelect" style="margin-left:10px">Sort by:</label>
+                    <select id="vmSortSelect">
+                        <option value="costOptimized" selected>&#x1F4B0; Cost Optimized</option>
+                        <option value="bestValue">&#x1F3C6; Best Value</option>
+                        <option value="bestPerformance">&#x26A1; Best Performance</option>
+                        <option value="fastestNetwork">&#x1F310; Fastest Network</option>
+                        <option value="mostBalanced">&#x2696;&#xFE0F; Most Balanced</option>
+                    </select>
+                </div>
+                <div class="vm-recs-banner">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="flex-shrink:0;margin-top:2px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    VM recommendations are based on the <strong>Balanced scenario</strong> (70% utilization, 30% headroom). This represents a typical production deployment with sufficient headroom for traffic bursts.
+                </div>
+                <div id="vmRecsCards" class="vm-recs-cards">
+                    <div class="vm-recs-placeholder">Adjust your inputs above — recommendations update automatically.</div>
+                </div>
+                <div class="vm-recs-disclaimer">
+                    &#x1F4A1; Prices shown are Linux on-demand estimates as of February 2026. Subject to change &mdash; verify with the
+                    <a href="https://azure.microsoft.com/pricing/calculator/" target="_blank" rel="noopener noreferrer">Azure Pricing Calculator</a>.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Shared Footer (rendered by JS) -->
+    <footer id="app-footer"></footer>
+
+    <!-- jsPDF for PDF Export (CDN with local fallback) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" 
+            onerror="this.onerror=null; this.src='lib/jspdf.umd.min.js';"
+            crossorigin="anonymous"></script>
+    
+    <!-- Load shared components FIRST -->
+    <script src="js/version-checker.js"></script>
+    <script src="js/shared-components.js"></script>
+    
+    <!-- Core Modules (order matters: presets → blending → calculations) -->
+    <script src="js/preset-loader.js"></script>
+    <script src="js/protocol-blending.js"></script>
+    <script src="js/calculations.js"></script>
+    <script src="js/network-calculations.js"></script>
+    <script src="js/cloud-vm-matcher.js"></script>
+    <script src="js/pdf-export.js"></script>
+    
+    <!-- Shared Schema Modules -->
+    <script src="js/schema-loader.js"></script>
+    <script src="js/schema-ui.js"></script>
+    <script src="js/schema-form-component.js"></script>
+    
+    <script>
+        // ============================================
+        // Single-Site Sizing Planner
+        // Uses shared form component for schema-driven UI
+        // ============================================
+
+        let currentInputs = {};
+        let formInstance = null;
+
+        // Azure VM Recommendations state
+        let vmRecsExpanded = false;
+        let lastNetworkResults = null;
+        let lastServerCounts = null;
+        let lastVMResultCache = null;
+
+        // DOM Elements for results
+        const elements = {};
+
+        // ============================================
+        // Initialization
+        // ============================================
+
+        function init() {
+            try {
+                // Initialize DOM element references
+                initElements();
+                
+                // Initialize default inputs from schema
+                currentInputs = schemaLoader.getDefaultInputs();
+
+                // Render the form using shared component
+                formInstance = schemaFormComponent.render(document.getElementById('formContainer'), {
+                    idPrefix: '',
+                    includeProtocolBlending: true,
+                    initialValues: currentInputs,
+                    onInputChange: handleInputChange,
+                    onPresetChange: handlePresetChange,
+                    onBlendingChange: handleProtocolBlendingChange
+                });
+
+                // Setup advanced mode toggle
+                document.getElementById('advancedModeToggle').addEventListener('change', (e) => {
+                    document.body.classList.toggle('advanced-mode', e.target.checked);
+                });
+
+                // Apply initial presets to currentInputs
+                applyInitialPresets();
+
+                // Initial calculation
+                updateResults();
+                
+                // Group Memory + NIC Speed controls side-by-side
+                applyFormLayoutTweaks();
+
+                // Initialize disclaimer banner
+                initializeDisclaimerBanner();
+
+                console.log('Single-site planner initialized');
+
+            } catch (error) {
+                console.error('Failed to initialize:', error);
+                document.getElementById('formContainer').innerHTML = 
+                    `<div class="loading" style="animation: none; color: #d32f2f;">Error: ${error.message}</div>`;
+            }
+        }
+
+        function initElements() {
+            elements.reqBandwidth = document.getElementById('reqBandwidth');
+            elements.reqCores = document.getElementById('reqCores');
+            elements.reqCoresDetail = document.getElementById('reqCoresDetail');
+            elements.reqMemory = document.getElementById('reqMemory');
+            elements.reqSubtitle = document.getElementById('reqSubtitle');
+            elements.scenariosNote = document.getElementById('scenariosNote');
+            elements.serverScenariosBody = document.getElementById('serverScenariosBody');
+        }
+
+        // ============================================
+        // Event Handlers
+        // ============================================
+
+        function handleInputChange(attrId, value, attr) {
+            currentInputs[attrId] = value;
+            updateResults();
+        }
+
+        function handlePresetChange(presetId, optionId) {
+            const mappings = schemaFormComponent.applyPresetToInputs(presetId, optionId, '');
+            Object.assign(currentInputs, mappings);
+            updateResults();
+        }
+
+        function handleProtocolBlendingChange(blendedValues) {
+            if (blendedValues) {
+                currentInputs.avgRequestSize = blendedValues.avgRequestSizeKB;
+                currentInputs.avgResponseSize = blendedValues.avgResponseSizeKB;
+                currentInputs.requestsPerUser = blendedValues.requestsPerUserPerSec;
+            }
+            updateResults();
+        }
+
+        function applyInitialPresets() {
+            // Apply default preset values to both currentInputs AND DOM fields.
+            // Must use schemaFormComponent.applyPresetToInputs (not schemaLoader.mapPresetToInputs)
+            // so the form fields are updated to match the computed defaults (e.g. expectedConcurrentUsers
+            // = totalUsers × concurrentUserRatio, not the bare schema default of 50000).
+            const schema = schemaLoader.getSchema();
+
+            for (const presetDef of schema.presets) {
+                const options = schemaLoader.getPresetOptionsById(presetDef.id);
+                const defaultOption = options.find(o => o.isDefault) || options[0];
+                if (defaultOption) {
+                    const mappings = schemaFormComponent.applyPresetToInputs(presetDef.id, defaultOption.id, '');
+                    Object.assign(currentInputs, mappings);
+                }
+            }
+        }
+
+        // ============================================
+        // Results Update (Network Model)
+        // ============================================
+
+        function updateResults() {
+            try {
+                const networkResults = calculateNetworkCapacity(currentInputs);
+                const serverCounts = calculateServerCount(networkResults, currentInputs);
+                updateRequirementsDisplay(networkResults);
+                updateServerScenarios(networkResults, serverCounts);
+                // Cache for VM recommendations and refresh if section is open
+                lastNetworkResults = networkResults;
+                lastServerCounts = serverCounts;
+                if (vmRecsExpanded) {
+                    updateVMRecommendations();
+                }
+            } catch (error) {
+                console.error('Calculation error:', error);
+            }
+        }
+
+        function updateRequirementsDisplay(networkResults) {
+            const workload = networkResults.requestedWorkload;
+
+            // Show raw workload numbers (actual demand)
+            elements.reqBandwidth.textContent = workload.bandwidth.bandwidthGbps.toFixed(2) + ' Gbps';
+
+            const rawCores = Math.ceil(workload.cpu.actualCoresRequired);
+            const baselineCores = Math.ceil(workload.cpu.baselineCoresRequired);
+            const multiplier = workload.cpu.cpuPerfMultiplier;
+            elements.reqCores.textContent = rawCores + ' cores';
+            elements.reqCoresDetail.textContent = multiplier !== 1.0
+                ? `${baselineCores} baseline ÷ ${multiplier}× perf`
+                : 'baseline CPU (1.00×)';
+
+            elements.reqMemory.textContent = Math.ceil(workload.memory.totalMemoryGB) + ' GB';
+
+            elements.reqSubtitle.textContent =
+                `Generated by ${workload.users.toLocaleString()} concurrent users — use the table below to choose a provisioning scenario`;
+        }
+
+        function updateServerScenarios(networkResults, serverCounts) {
+            const tbody = elements.serverScenariosBody;
+            if (!tbody) return;
+
+            const workload = networkResults.requestedWorkload;
+            const rawBw   = workload.bandwidth.bandwidthGbps.toFixed(2);
+            const rawCores = Math.ceil(workload.cpu.actualCoresRequired);
+            const rawMem   = Math.ceil(workload.memory.totalMemoryGB);
+            const users    = workload.users.toLocaleString();
+
+            // Update explanatory note
+            if (elements.scenariosNote) {
+                elements.scenariosNote.innerHTML =
+                    `Your workload generates <strong>${rawBw} Gbps</strong> / <strong>${rawCores} cores</strong> / <strong>${rawMem} GB</strong> ` +
+                    `for <strong>${users} concurrent users</strong>. ` +
+                    `Each row shows how much infrastructure to provision so peak load stays at the target utilization — ` +
+                    `lower % = more spare headroom for bursts.`;
+            }
+
+            const scenarios = [
+                { key: 'conservative', label: 'Conservative' },
+                { key: 'balanced',     label: 'Balanced'     },
+                { key: 'efficient',    label: 'Efficient'    },
+            ];
+
+            const scenarioRows = scenarios.map(({ key, label }) => {
+                const s = networkResults.scenarios[key];
+                const c = serverCounts[key];
+                const limitClass = c.limitingFactor.toLowerCase() + '-limited';
+                const rowClass = key === 'efficient' ? 'scenario-highlight' : '';
+                const headroom = Math.round((1 / (s.targetUtilization / 100) - 1) * 100);
+                return `
+                    <tr class="${rowClass}">
+                        <td><strong>${label}</strong> <small style="color:#888">${s.utilizationPercent}</small></td>
+                        <td class="headroom-cell">+${headroom}%</td>
+                        <td>${s.bandwidthGbps.toFixed(2)} Gbps</td>
+                        <td>${s.actualCoresRequired}</td>
+                        <td>${s.memoryGB} GB</td>
+                        <td class="servers-required-cell"><strong>${c.serversRequired}</strong>${c.serversRequired < 2 ? ' <span class="ha-note">(+1 for HA)</span>' : ''}</td>
+                        <td><span class="limiting-chip ${limitClass}">${c.limitingFactor}</span></td>
+                    </tr>
+                `;
+            }).join('');
+
+            tbody.innerHTML = scenarioRows;
+        }
+
+        // ============================================
+        // Azure VM Recommendations
+        // ============================================
+
+        async function updateVMRecommendations() {
+            if (!lastNetworkResults || !lastServerCounts) return;
+
+            const balanced = lastNetworkResults.scenarios.balanced;
+            const servers = lastServerCounts.balanced.serversRequired;
+
+            // Derive per-server requirements from the balanced scenario
+            // (calculated workload requirements, not preset hardware values)
+            const requirements = {
+                coresPerServer: Math.max(1, Math.ceil(balanced.actualCoresRequired / servers)),
+                memoryGB: Math.max(1, Math.ceil(balanced.memoryGB / servers)),
+                nicLinkSpeed: Math.max(100, Math.ceil((balanced.bandwidthGbps * 1000) / servers)),
+                serversRequired: servers
+            };
+
+            const region = document.getElementById('azureRegionSelect')?.value || 'eastus';
+            // Fetch all matches so we can re-sort without re-querying when sort mode changes
+            const result = await generateAzureVMRecommendations(requirements, region, 50);
+            lastVMResultCache = result;
+            applyVMSort();
+        }
+
+        function applyVMSort() {
+            if (!lastVMResultCache || !lastVMResultCache.success) {
+                renderVMCards(lastVMResultCache);
+                return;
+            }
+            const sortMode = document.getElementById('vmSortSelect')?.value || 'costOptimized';
+            const allVMs = [...lastVMResultCache.allMatches];
+
+            switch (sortMode) {
+                case 'costOptimized':
+                    allVMs.sort((a, b) => a.totalMonthlyCost - b.totalMonthlyCost);
+                    break;
+                case 'bestValue':
+                    // already sorted by costEfficiency from generateAzureVMRecommendations
+                    allVMs.sort((a, b) => b.costEfficiency - a.costEfficiency);
+                    break;
+                case 'bestPerformance':
+                    allVMs.sort((a, b) => b.performanceScore - a.performanceScore);
+                    break;
+                case 'fastestNetwork':
+                    allVMs.sort((a, b) => b.network_mbps - a.network_mbps);
+                    break;
+                case 'mostBalanced':
+                    allVMs.sort((a, b) => {
+                        const spreadA = Math.max(a.cpuOverprovisionPct, a.memOverprovisionPct, a.netOverprovisionPct) -
+                                        Math.min(a.cpuOverprovisionPct, a.memOverprovisionPct, a.netOverprovisionPct);
+                        const spreadB = Math.max(b.cpuOverprovisionPct, b.memOverprovisionPct, b.netOverprovisionPct) -
+                                        Math.min(b.cpuOverprovisionPct, b.memOverprovisionPct, b.netOverprovisionPct);
+                        return spreadA - spreadB;
+                    });
+                    break;
+            }
+
+            const sorted = { ...lastVMResultCache, recommendations: allVMs.slice(0, 3) };
+            renderVMCards(sorted);
+        }
+
+        function renderVMCards(result) {
+            const container = document.getElementById('vmRecsCards');
+            if (!container) return;
+
+            if (!result.success) {
+                container.innerHTML = `<div class="no-recommendations"><p>No Azure VMs found matching your requirements.</p><p style="font-size:0.85em;color:#888">${result.error || ''}</p></div>`;
+                return;
+            }
+
+            const rankLabels = ['🏆 Best Value', '⚡ Runner Up', '🔵 Alternative'];
+
+            const cards = result.recommendations.map((vm, i) => {
+                const monthlySingle = Math.round(vm.monthlyRatePerServer);
+                const monthlyTotal  = Math.round(vm.totalMonthlyCost);
+                const servers       = result.requirements.serversRequired;
+
+                const cpuBadge = vm.cpuOverprovisionPct <= 50
+                    ? `<span class="badge badge-success">✓ CPU +${vm.cpuOverprovisionPct.toFixed(0)}%</span>`
+                    : `<span class="badge badge-warning">⚠ CPU +${vm.cpuOverprovisionPct.toFixed(0)}%</span>`;
+
+                const memBadge = vm.memOverprovisionPct <= 50
+                    ? `<span class="badge badge-success">✓ Mem +${vm.memOverprovisionPct.toFixed(0)}%</span>`
+                    : `<span class="badge badge-warning">⚠ Mem +${vm.memOverprovisionPct.toFixed(0)}%</span>`;
+
+                const bestClass = i === 0 ? ' card-best-value' : '';
+
+                return `
+                    <div class="recommendation-card${bestClass}">
+                        <div class="recommendation-header">
+                            <div>
+                                <div class="vm-name">${vm.sku}</div>
+                                <div class="vm-series">${vm.series} &bull; ${vm.family}</div>
+                            </div>
+                            <div class="recommendation-price">
+                                <span class="badge badge-primary vm-rank-badge">${rankLabels[i]}</span>
+                                <div style="font-size:1.15em;font-weight:700;color:#0078d4;margin-top:6px">$${monthlySingle.toLocaleString()}/mo</div>
+                                <div class="hourly-cost">per server &bull; $${vm.hourlyRate.toFixed(3)}/hr</div>
+                                <span class="cost-total">$${monthlyTotal.toLocaleString()}/mo total (${servers} server${servers !== 1 ? 's' : ''})</span>
+                            </div>
+                        </div>
+                        <div class="recommendation-specs">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#x26A1;</span>
+                                <span class="spec-label">vCPUs:</span>
+                                <span class="spec-value">${vm.vCPUs}</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#x1F4BE;</span>
+                                <span class="spec-label">Memory:</span>
+                                <span class="spec-value">${vm.memory_gb} GB</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#x1F310;</span>
+                                <span class="spec-label">Network:</span>
+                                <span class="spec-value">${vm.network_label}</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#x1F527;</span>
+                                <span class="spec-label">CPU:</span>
+                                <span class="spec-value" title="${vm.processor}">${vm.generation}</span>
+                            </div>
+                        </div>
+                        <div class="recommendation-badges">
+                            ${cpuBadge}${memBadge}
+                            <span class="badge badge-info" style="font-style:italic">${vm.notes}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = cards;
+        }
+
+        // ============================================
+        // Form Layout Tweaks (post-render)
+        // ============================================
+
+        function applyFormLayoutTweaks() {
+            const memGroup = document.getElementById('attr_memoryGB')?.closest('.form-group');
+            const nicGroup = document.getElementById('preset_nicSpeeds_wrapper');
+            if (memGroup && nicGroup && memGroup.parentElement === nicGroup.parentElement) {
+                const row = document.createElement('div');
+                row.className = 'form-group-row';
+                memGroup.parentElement.insertBefore(row, memGroup);
+                row.appendChild(memGroup);
+                row.appendChild(nicGroup);
+            }
+        }
+
+        // ============================================
+        // Disclaimer Banner
+        // ============================================
+
+        function initializeDisclaimerBanner() {
+            const banner = document.getElementById('disclaimerBanner');
+            const toggle = document.getElementById('disclaimerToggle');
+            
+            if (!banner || !toggle) return;
+            
+            const isCollapsed = localStorage.getItem('disclaimerCollapsed') === 'true';
+            if (isCollapsed) {
+                banner.classList.add('collapsed');
+            }
+            
+            toggle.addEventListener('click', () => {
+                banner.classList.toggle('collapsed');
+                localStorage.setItem('disclaimerCollapsed', banner.classList.contains('collapsed'));
+            });
+        }
+
+        // ============================================
+        // PDF Export Handler
+        // ============================================
+
+        function handleExportPDF() {
+            if (!window.jspdf || !window.jspdf.jsPDF) {
+                alert('PDF export library is not loaded. Please check your internet connection or try again.');
+                return;
+            }
+            
+            const networkResults = calculateNetworkCapacity(currentInputs);
+            const serverCounts = calculateServerCount(networkResults, currentInputs);
+            
+            if (window.pdfExport && window.pdfExport.exportSingleSitePDF) {
+                window.pdfExport.exportSingleSitePDF(currentInputs, networkResults, serverCounts);
+            } else {
+                alert('PDF export module is not available. Please refresh the page and try again.');
+            }
+        }
+
+        // ============================================
+        // Start Application
+        // ============================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dark mode is initialized by shared-components.js
+
+            // PDF Export button
+            const exportPdfBtn = document.getElementById('exportPdfBtn');
+            if (exportPdfBtn) {
+                exportPdfBtn.addEventListener('click', handleExportPDF);
+            }
+
+            // Azure VM Recommendations toggle
+            const vmRecsToggle = document.getElementById('vmRecsToggle');
+            const vmRecsBody   = document.getElementById('vmRecsBody');
+            const vmRecsBtn    = document.getElementById('vmRecsToggleBtn');
+
+            function toggleVMRecs() {
+                vmRecsExpanded = !vmRecsExpanded;
+                vmRecsBody.style.display = vmRecsExpanded ? 'block' : 'none';
+                vmRecsBtn.style.transform = vmRecsExpanded ? 'rotate(180deg)' : '';
+                vmRecsBtn.setAttribute('aria-expanded', vmRecsExpanded);
+                if (vmRecsExpanded && lastNetworkResults) {
+                    updateVMRecommendations();
+                }
+            }
+
+            if (vmRecsToggle) {
+                vmRecsToggle.addEventListener('click', toggleVMRecs);
+                vmRecsToggle.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleVMRecs(); }
+                });
+            }
+
+            // Region selector — refresh recommendations when changed (must re-fetch for new pricing)
+            const regionSelect = document.getElementById('azureRegionSelect');
+            if (regionSelect) {
+                regionSelect.addEventListener('change', () => {
+                    if (vmRecsExpanded && lastNetworkResults) updateVMRecommendations();
+                });
+            }
+
+            // Sort dropdown — re-sort cached results, no re-fetch needed
+            const sortSelect = document.getElementById('vmSortSelect');
+            if (sortSelect) {
+                sortSelect.addEventListener('change', () => {
+                    if (vmRecsExpanded && lastVMResultCache) applyVMSort();
+                });
+            }
+
+            // Pre-warm embedded VM data cache
+            if (typeof loadAzureVMData === 'function') loadAzureVMData();
+
+            init();
+        });
+    </script>
+</body>
+</html>
