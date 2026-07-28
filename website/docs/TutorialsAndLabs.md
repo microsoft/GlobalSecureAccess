@@ -7,7 +7,7 @@ Microsoft offers detailed step-by-step tutorials for Entra Internet Access and E
 ### POC step-by-step instructions
 - [Entra Internet Access POC](https://learn.microsoft.com/entra/global-secure-access/tutorial-internet-access-introduction)
 - [Entra Private Access POC](https://learn.microsoft.com/entra/global-secure-access/tutorial-private-access-introduction)
-- *Internet Access for Microsoft Services Lab coming soon*
+- [Internet Access for Microsoft Services POC](https://learn.microsoft.com/entra/global-secure-access/tutorial-microsoft-traffic-introduction)
 
 ### Lab Environment
 If you need a lab environment to test Entra Private Access, you can leverage the **[entra-gsa-labs repo](https://github.com/Dayzure/entra-gsa-labs)**. The entra-gsa-labs repo deploys a fully isolated, end‑to‑end Azure lab environment designed specifically to test and demonstrate Microsoft Entra Global Secure Access (GSA) scenarios—especially Private Access and hybrid identity flows—without interfering with any existing infrastructure.
