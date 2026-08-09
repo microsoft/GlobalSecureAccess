@@ -43,6 +43,11 @@ const sidebars = {
     },
     {
       type: 'doc',
+      id: 'gsa-policy-workbench',
+      label: 'GSA Policy Workbench',
+    },
+    {
+      type: 'doc',
       id: 'GSAFeatureUsageAnalysis',
       label: 'GSA Feature Usage Analysis',
     },
