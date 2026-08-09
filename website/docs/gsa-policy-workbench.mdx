@@ -1,0 +1,55 @@
+---
+title: GSA Policy Workbench
+description: A single-pane, read-only visibility tool for Microsoft Global Secure Access (GSA) Internet Access and Private Access policy — search, filter, and inspect every rule and Conditional Access target from one screen.
+slug: /community/gsa-policy-workbench
+tags: [community, tooling, internet-access, private-access, conditional-access]
+hide_table_of_contents: true
+---
+
+# GSA Policy Workbench
+
+**One screen over your GSA policy — instead of nine admin-center blades.**
+
+Global Secure Access Internet Access administration today is spread across nearly a dozen separate blades in the Entra admin center, with no single place to see every Security Profile, Filtering Policy, and rule — in order, searchable, and cross-referenced against the Conditional Access policies that target it.
+
+**GSA Policy Workbench** is a free, open-source, read-only inspector that puts it all in one place.
+
+<p>
+  <a className="button button--primary button--lg" href="https://github.com/microsoft/GSA-Policy-Workbench">
+    ⭐ View on GitHub
+  </a>{' '}
+  <a className="button button--secondary button--lg" href="https://github.com/microsoft/GSA-Policy-Workbench/blob/main/docs/getting-started.md">
+    Getting started
+  </a>
+</p>
+
+:::info Status
+**V1** — full read-only visibility plane. Internet Access + Private Access, live tenant or an exported policy file. MIT licensed.
+:::
+
+## Why admins are trying it
+
+- 📋 **Every Security Profile → policy → rule, in one searchable table** — with the linked Conditional Access targeting alongside it, not in a separate blade.
+- 🔒 **Private Access visibility too** — Quick Access, named apps, and Application Proxy apps, correlated to their covering Conditional Access policies.
+- 🧭 **What-If resolver** — check which rules and CA policies would match a given destination or user, without leaving the table.
+- 📂 **No live tenant required to try it** — load a sample exported policy file and explore the full UI with no sign-in and no network access.
+- 🔐 **Read-only by design** — zero writes to Microsoft Graph. Nothing here can change your tenant's policy.
+- 🧩 **Every Graph call flows through one audited adapter** — full call-log transparency, no hidden requests.
+
+## How it's built
+
+Static SPA — Vite + React + TypeScript (strict), Fluent UI v9, TanStack Query/Table/Virtual, MSAL for auth. No backend, nothing to host but static files. See the [architecture doc](https://github.com/<org>/gsa-policy-workbench/blob/main/docs/architecture.md) for the full three-tier design.
+
+## Try it in two ways
+
+1. **Load a sample policy file** — no sign-in, no tenant, just the bundled sample data. Fastest way to see the UI.
+2. **Sign in to your own tenant** — one PowerShell command creates the Entra app registration and required read-only scopes; see the [App registration guide](https://github.com/<org>/gsa-policy-workbench#app-registration).
+
+## Not sure this is the right tool?
+
+- Migrating from a third-party SSE product? Use [Migrate2GSA](https://aka.ms/migrate2gsa) instead — the Workbench doesn't import third-party config.
+- Generating a greenfield policy set from personas? Use the [EIA Greenfield Wizard](https://microsoft.github.io/Migrate2GSA/tools/EIA-Greenfield-Wizard/) instead — the Workbench doesn't generate policy, it only inspects what already exists.
+
+---
+
+**Get the code:** [github.com/microsoft/GSA-Policy-Workbench](https://github.com/microsoft/GSA-Policy-Workbench) · MIT license · Contributions welcome
